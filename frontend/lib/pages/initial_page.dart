@@ -11,6 +11,8 @@ class InitialPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final signInStateNotifier = SignInStateNotifier();
+    // TODO remove in production
+    // box.put("signInState", false);
     return ListenableBuilder(
       listenable: signInStateNotifier,
       builder: (context, child) {

@@ -64,8 +64,8 @@ class PasswordTextFieldState extends State<PasswordTextField> {
         controller: widget.controller,
         obscureText: obscureText,
         decoration: InputDecoration(
-          prefixIcon: RTL ? eyeIcon() : null,
-          suffixIcon: RTL ? null : eyeIcon(),
+          // prefixIcon: RTL ? eyeIcon() : null,
+          // suffixIcon: RTL ? null : eyeIcon(),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blue.shade200, width: 1.1),
             borderRadius: BorderRadius.circular(TextFieldBorderRadius),

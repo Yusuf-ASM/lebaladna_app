@@ -36,30 +36,14 @@ void writeError<T>(String functionName, T error) {
   box.put("log", log);
 }
 
-class DarkThemeNotifier with ChangeNotifier {
-  DarkThemeNotifier.darkThemeNotifier();
-  static final DarkThemeNotifier _instance = DarkThemeNotifier.darkThemeNotifier();
-  factory DarkThemeNotifier() {
-    return _instance;
-  }
-
-  bool mode = box.get("theme") ?? false;
-
-  void changeTheme() {
-    mode = !mode;
-    box.put("theme", mode);
-    notifyListeners();
-  }
-}
-
-String int2Time(int time) {
-  if (time < 12) {
-    return RTL ? "$time ص" : "$time AM";
-  } else if (time == 12) {
-    return RTL ? "$time م" : "$time PM";
-  }
-  return RTL ? "${time - 12} م" : "${time - 12} PM";
-}
+// String int2Time(int time) {
+//   if (time < 12) {
+//     return RTL ? "$time ص" : "$time AM";
+//   } else if (time == 12) {
+//     return RTL ? "$time م" : "$time PM";
+//   }
+//   return RTL ? "${time - 12} م" : "${time - 12} PM";
+// }
 
 class LoadingStateNotifier with ChangeNotifier {
   LoadingStateNotifier({this.loading = true});
@@ -87,24 +71,6 @@ class SignInStateNotifier with ChangeNotifier {
   void signIn() {
     signed = true;
     box.put("signInState", true);
-    notifyListeners();
-  }
-}
-
-class StringListNotifier with ChangeNotifier {
-  List<String> list = [];
-  void addCourse(String courseName) {
-    list.add(courseName);
-    notifyListeners();
-  }
-
-  void removeCourse(String courseName) {
-    list.remove(courseName);
-    notifyListeners();
-  }
-
-  void clearCart() {
-    list.clear();
     notifyListeners();
   }
 }

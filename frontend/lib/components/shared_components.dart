@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lottie/lottie.dart';
 
 import '../backend/custom_functions.dart';
 import '../backend/shared_variables.dart';
@@ -22,12 +23,26 @@ dynamic loadingIndicatorDialog(BuildContext context, {bool dismissible = false})
     context: context,
     barrierDismissible: false,
     builder: (BuildContext context) {
-      return const PopScope(
+      final date = DateTime.now();
+      return PopScope(
         canPop: false,
         child: SimpleDialog(
           elevation: 0.0,
           backgroundColor: Colors.transparent,
-          children: [Center(child: CircularProgressIndicator())],
+          children: [
+            Center(
+              child: Lottie.asset(
+                date.minute % 2 == 0
+                    ? date.second % 2 == 0
+                        ? "assets/images/cat.json"
+                        : "assets/images/bomb.json"
+                    : date.second % 2 == 0
+                        ? "assets/images/duck.json"
+                        : "assets/images/potato.json",
+                frameRate: FrameRate.max,
+              ),
+            )
+          ],
         ),
       );
     },
@@ -35,7 +50,19 @@ dynamic loadingIndicatorDialog(BuildContext context, {bool dismissible = false})
 }
 
 Center loadingIndicator() {
-  return const Center(child: CircularProgressIndicator());
+  final date = DateTime.now();
+  return Center(
+    child: Lottie.asset(
+      date.minute % 2 == 0
+          ? date.second % 2 == 0
+              ? "assets/images/cat.json"
+              : "assets/images/bomb.json"
+          : date.second % 2 == 0
+              ? "assets/images/duck.json"
+              : "assets/images/potato.json",
+      frameRate: FrameRate.max,
+    ),
+  );
 }
 
 dynamic simpleDialog({
@@ -115,7 +142,7 @@ class FormTextField extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: RTL ? MainAxisAlignment.end : MainAxisAlignment.start,
+            // mainAxisAlignment: RTL ? MainAxisAlignment.end : MainAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8),
@@ -170,7 +197,7 @@ class FormAutoComplete extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: RTL ? MainAxisAlignment.end : MainAxisAlignment.start,
+            // mainAxisAlignment: RTL ? MainAxisAlignment.end : MainAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8),

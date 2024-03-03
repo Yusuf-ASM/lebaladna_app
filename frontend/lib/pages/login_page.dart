@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../backend/text.dart';
 import '../components/auth/button.dart';
 import '../components/auth/text_field.dart';
-import 'buttons/login.dart';
+import 'pages_backend/login.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -14,12 +14,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    double maxWidth = width * 0.45;
-    if (width < 500) {
-      maxWidth = width * 0.8;
-    } else if (width < 1190) {
-      maxWidth = width * 0.6;
-    }
+    double maxWidth = width * 0.8;
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -29,10 +24,12 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // TODO Use program client logo
-                  // Image.asset(
-                  //   "assets/images/logo.png",
-                  // ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: Image.asset(
+                      "assets/logo_crop.png",
+                    ),
+                  ),
                   Column(
                     children: [
                       SignInTextField(

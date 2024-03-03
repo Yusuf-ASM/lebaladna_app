@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/home_page.dart';
+import 'package:frontend/pages/intro_page.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+import 'backend/shared_variables.dart';
+
+// okie
+Future<void> main() async {
+  await Hive.initFlutter();
+  await Hive.openBox("lebaladna");
+
   runApp(const Main());
 }
 
@@ -12,7 +19,8 @@ class Main extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: const IntroPage(),
+      theme: ThemeData(colorSchemeSeed: mainColor),
     );
   }
 }
