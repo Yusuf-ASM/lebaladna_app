@@ -3,6 +3,7 @@
         "DBNAME",
         "lebaladna",
         "TESTINGMONGOLINK",
-        "TOKENLENGTH"
+        "TOKENLENGTH",
+        "unfocus"
     ]
 }
