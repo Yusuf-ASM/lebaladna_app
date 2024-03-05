@@ -9,7 +9,7 @@ class RegisterUserPage extends StatelessWidget {
     final username = TextEditingController();
     final password = TextEditingController();
     final width = MediaQuery.of(context).size.width;
-    double maxWidth = width * 0.8;
+    double maxWidth = width * 0.9;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(title: const Text(textRegisterUser), centerTitle: true),

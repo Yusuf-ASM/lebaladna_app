@@ -14,7 +14,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    double maxWidth = width * 0.8;
+    double maxWidth = width * 0.9;
     return SafeArea(
       child: Scaffold(
         body: Center(

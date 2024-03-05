@@ -9,7 +9,7 @@ class RegisterMealPage extends StatelessWidget {
     final mealName = TextEditingController();
     final password = TextEditingController();
     final width = MediaQuery.of(context).size.width;
-    double maxWidth = width * 0.8;
+    double maxWidth = width * 0.9;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(title: const Text(textCreateMeal), centerTitle: true),
