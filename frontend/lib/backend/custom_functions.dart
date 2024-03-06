@@ -55,22 +55,22 @@ class LoadingStateNotifier with ChangeNotifier {
   }
 }
 
-class SignInStateNotifier with ChangeNotifier {
-  SignInStateNotifier.signInStateNotifier();
-  static final SignInStateNotifier _instance = SignInStateNotifier.signInStateNotifier();
-  factory SignInStateNotifier() {
+class UserStateNotifier with ChangeNotifier {
+  UserStateNotifier.signInStateNotifier();
+  static final UserStateNotifier _instance = UserStateNotifier.signInStateNotifier();
+  factory UserStateNotifier() {
     return _instance;
   }
-  bool signed = box.get("signInState") ?? false;
-  void signOut() {
+  bool signed = box.get("signed") ?? false;
+  void logout() {
     signed = false;
-    box.put("signInState", false);
+    box.put("signed", false);
     notifyListeners();
   }
 
-  void signIn() {
+  void login() {
     signed = true;
-    box.put("signInState", true);
+    box.put("signed", true);
     notifyListeners();
   }
 }

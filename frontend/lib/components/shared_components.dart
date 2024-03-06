@@ -34,11 +34,11 @@ dynamic loadingIndicatorDialog(BuildContext context, {bool dismissible = false})
               child: Lottie.asset(
                 date.minute % 2 == 0
                     ? date.second % 2 == 0
-                        ? "assets/images/cat.json"
-                        : "assets/images/bomb.json"
+                        ? "assets/cat.json"
+                        : "assets/bomb.json"
                     : date.second % 2 == 0
-                        ? "assets/images/duck.json"
-                        : "assets/images/potato.json",
+                        ? "assets/duck.json"
+                        : "assets/potato.json",
                 frameRate: FrameRate.max,
               ),
             )
@@ -55,11 +55,11 @@ Center loadingIndicator() {
     child: Lottie.asset(
       date.minute % 2 == 0
           ? date.second % 2 == 0
-              ? "assets/images/cat.json"
-              : "assets/images/bomb.json"
+              ? "assets/cat.json"
+              : "assets/bomb.json"
           : date.second % 2 == 0
-              ? "assets/images/duck.json"
-              : "assets/images/potato.json",
+              ? "assets/duck.json"
+              : "assets/potato.json",
       frameRate: FrameRate.max,
     ),
   );

@@ -17,265 +17,256 @@ class HomePage extends StatelessWidget {
     double maxWidth = width * 0.9;
     return SafeArea(
       child: Scaffold(
-          drawer: drawer(context),
-          appBar: AppBar(title: const Text(textDashboard), centerTitle: true),
-          body: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: maxWidth),
-                    child: Card(
-                      elevation: 4,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Expanded(
-                              child: Center(
-                                child: Text(
-                                  "Current Progress:",
-                                  style: TextStyle(fontSize: SemiTextSize),
-                                ),
+        drawer: drawer(context),
+        appBar: AppBar(title: const Text(textDashboard), centerTitle: true),
+        body: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: maxWidth),
+                  child: Card(
+                    elevation: 4,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Expanded(
+                            child: Center(
+                              child: Text(
+                                "Current Progress:",
+                                style: TextStyle(fontSize: SemiTextSize),
                               ),
                             ),
-                            CircularPercentIndicator(
-                              radius: 60.0,
-                              lineWidth: 5.0,
-                              percent: 0.5,
-                              center: const Text("100%"),
-                              progressColor: Colors.green,
-                            ),
-                          ],
-                        ),
+                          ),
+                          CircularPercentIndicator(
+                            radius: 60.0,
+                            lineWidth: 5.0,
+                            percent: 0.5,
+                            center: const Text("100%"),
+                            progressColor: Colors.green,
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: maxWidth, minWidth: maxWidth),
-                    child: const Card(
-                      elevation: 4,
-                      child: Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: Column(
-                          // crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: maxWidth, minWidth: maxWidth),
+                  child: const Card(
+                    elevation: 4,
+                    child: Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Column(
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Used Material:",
+                                style: TextStyle(fontSize: SemiTextSize),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 8),
+                            child: Wrap(
+                              spacing: 32,
+                              // alignment: WrapAlignment.spaceEvenly,
+                              direction: Axis.horizontal,
                               children: [
-                                Text(
-                                  "Used Material:",
-                                  style: TextStyle(fontSize: SemiTextSize),
+                                Column(
+                                  children: [
+                                    Text(
+                                      "01",
+                                      style: TextStyle(fontSize: BigTextSize),
+                                    ),
+                                    Text(
+                                      "Rice",
+                                      style: TextStyle(fontSize: SemiTextSize),
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      "10",
+                                      style: TextStyle(fontSize: BigTextSize),
+                                    ),
+                                    Text(
+                                      "Pack",
+                                      style: TextStyle(fontSize: SemiTextSize),
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      "02",
+                                      style: TextStyle(fontSize: BigTextSize),
+                                    ),
+                                    Text(
+                                      "Meat",
+                                      style: TextStyle(fontSize: SemiTextSize),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 8),
-                              child: Wrap(
-                                spacing: 32,
-                                // alignment: WrapAlignment.spaceEvenly,
-                                direction: Axis.horizontal,
-                                children: [
-                                  Column(
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: maxWidth, minWidth: maxWidth),
+                  child: Card(
+                    elevation: 4,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Stations Progress:",
+                                style: TextStyle(fontSize: SemiTextSize),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 16),
+                            child: Wrap(
+                              spacing: 8,
+                              alignment: WrapAlignment.spaceEvenly,
+                              direction: Axis.vertical,
+                              children: [
+                                SizedBox(
+                                  width: maxWidth * 0.6,
+                                  child: const Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "01",
-                                        style: TextStyle(fontSize: BigTextSize),
+                                        "Station 1:",
+                                        style: TextStyle(fontSize: SemiTextSize),
                                       ),
                                       Text(
-                                        "Rice",
+                                        "10 Meals",
                                         style: TextStyle(fontSize: SemiTextSize),
                                       ),
                                     ],
                                   ),
-                                  Column(
+                                ),
+                                SizedBox(
+                                  width: maxWidth * 0.6,
+                                  child: const Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "10",
-                                        style: TextStyle(fontSize: BigTextSize),
+                                        "Station 2:",
+                                        style: TextStyle(fontSize: SemiTextSize),
                                       ),
                                       Text(
-                                        "Pack",
+                                        "20 Meals",
                                         style: TextStyle(fontSize: SemiTextSize),
                                       ),
                                     ],
                                   ),
-                                  Column(
+                                ),
+                                SizedBox(
+                                  width: maxWidth * 0.6,
+                                  child: const Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "02",
-                                        style: TextStyle(fontSize: BigTextSize),
+                                        "Station 3:",
+                                        style: TextStyle(fontSize: SemiTextSize),
                                       ),
                                       Text(
-                                        "Meat",
+                                        "30 Meals",
                                         style: TextStyle(fontSize: SemiTextSize),
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: maxWidth, minWidth: maxWidth),
-                    child: Card(
-                      elevation: 4,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          // crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Stations Progress:",
-                                  style: TextStyle(fontSize: SemiTextSize),
                                 ),
                               ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 16),
-                              child: Wrap(
-                                spacing: 8,
-                                alignment: WrapAlignment.spaceEvenly,
-                                direction: Axis.vertical,
-                                children: [
-                                  SizedBox(
-                                    width: maxWidth * 0.6,
-                                    child: const Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Station 1:",
-                                          style: TextStyle(fontSize: SemiTextSize),
-                                        ),
-                                        Text(
-                                          "10 Meals",
-                                          style: TextStyle(fontSize: SemiTextSize),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: maxWidth * 0.6,
-                                    child: const Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Station 2:",
-                                          style: TextStyle(fontSize: SemiTextSize),
-                                        ),
-                                        Text(
-                                          "20 Meals",
-                                          style: TextStyle(fontSize: SemiTextSize),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: maxWidth * 0.6,
-                                    child: const Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Station 3:",
-                                          style: TextStyle(fontSize: SemiTextSize),
-                                        ),
-                                        Text(
-                                          "30 Meals",
-                                          style: TextStyle(fontSize: SemiTextSize),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: maxWidth, minWidth: maxWidth),
-                    child: Card(
-                      elevation: 4,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          // crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Report:",
-                                  style: TextStyle(fontSize: SemiTextSize),
-                                ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: maxWidth, minWidth: maxWidth),
+                  child: Card(
+                    elevation: 4,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Report:",
+                                style: TextStyle(fontSize: SemiTextSize),
+                              ),
+                            ],
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: DataTable(
+                              dividerThickness: 3,
+                              border: const TableBorder(),
+                              columns: const [
+                                DataColumn(label: Text("Time")),
+                                DataColumn(label: Text("Station")),
+                                DataColumn(label: Text("op")),
+                                DataColumn(label: Text("num"))
+                              ],
+                              rows: const [
+                                DataRow(cells: [
+                                  DataCell(Text("11:00")),
+                                  DataCell(Text("1")),
+                                  DataCell(Text("Meal")),
+                                  DataCell(Text("1"))
+                                ])
                               ],
                             ),
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: DataTable(
-                                dividerThickness: 3,
-                                border: const TableBorder(),
-                                columns: const [
-                                  DataColumn(label: Text("Time")),
-                                  DataColumn(label: Text("Station")),
-                                  DataColumn(label: Text("op")),
-                                  DataColumn(label: Text("num"))
-                                ],
-                                rows: const [
-                                  DataRow(cells: [
-                                    DataCell(Text("11:00")),
-                                    DataCell(Text("1")),
-                                    DataCell(Text("Meal")),
-                                    DataCell(Text("1"))
-                                  ])
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
-          )
-
-          // Container(
-          //   width: 400,
-          //   height: 400,
-          //   decoration: BoxDecoration(
-          //     borderRadius: BorderRadius.circular(15),
-          //     color: const Color.fromARGB(255, 233, 233, 233),
-          //   ),
-          // ),
           ),
+        ),
+      ),
     );
   }
 }
 
 Drawer drawer(BuildContext context) {
-  final signInStateNotifier = SignInStateNotifier();
+  final signInStateNotifier = UserStateNotifier();
   return Drawer(
     child: Column(
       children: [
@@ -390,7 +381,7 @@ Drawer drawer(BuildContext context) {
         DrawerIconButton(
           text: textLogout,
           icon: Icons.logout,
-          pressFunction: () => signInStateNotifier.signOut(),
+          pressFunction: () => signInStateNotifier.logout(),
         )
       ],
     ),

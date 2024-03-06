@@ -30,7 +30,7 @@ export async function registerUserBackend(req: Request, res: Response) {
   }
 }
 
-export async function LoginBackend(req: Request, res: Response) {
+export async function loginBackend(req: Request, res: Response) {
   const body = req.body;
 
   if (Object.keys(body).length == 0) {
@@ -48,7 +48,7 @@ export async function LoginBackend(req: Request, res: Response) {
     if (result) {
       res.send(result);
     } else {
-      res.sendStatus(401);
+      res.status(401).send({ error: "Wrong username/password" });
     }
   } else {
     res.status(checkingResult[0]).send({ error: checkingResult[1] });

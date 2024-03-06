@@ -3,7 +3,7 @@ import express from "express";
 import { getDate } from "./utility";
 import * as backend from "./backend";
 import { createIndexes } from "./db";
-
+import cors from "cors";
 require("dotenv").config();
 const PORT = process.env.PORT || "8080";
 
@@ -11,22 +11,30 @@ const app = express();
 const admin = express.Router();
 const facilitator = express.Router();
 const station = express.Router();
+const kitchen = express.Router();
 
 const wss = new WebSocket.Server({ noServer: true, path: "/ws" });
+
 /*
 - station leader will add dish and it should be pushed to db 
 - if facilitator accept any thing this thing should be pushed to database
 - my role function :)
 */
+
 app.use(express.json());
+app.use(cors());
+
 app.use("/admin", admin);
+app.use("/facilitator", facilitator);
+app.use("/station", station);
+app.use("/kitchen", kitchen);
 
 admin.post("/register_user", async (req, res) => {
   await backend.registerUserBackend(req, res);
 });
 
 app.post("/login", async (req, res) => {
-  await backend.LoginBackend(req, res);
+  await backend.loginBackend(req, res);
 });
 
 facilitator.post("/request_response", (req, res) => {});
@@ -63,4 +71,3 @@ wss.on("connection", (ws, req) => {
     }
   });
 });
-
