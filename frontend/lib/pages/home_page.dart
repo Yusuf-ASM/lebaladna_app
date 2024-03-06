@@ -296,7 +296,7 @@ Drawer drawer(BuildContext context) {
                 pressFunction: () {
                   Navigator.of(context).push(
                     CupertinoPageRoute(
-                      builder: (context) => const RegisterUserPage(),
+                      builder: (context) => RegisterUserPage(),
                     ),
                   );
                 },

@@ -31,17 +31,14 @@ export async function registerUser({
   };
   try {
     let userResult = await usersCollection.insertOne(user);
-
     return userResult.acknowledged;
   } catch (error) {
     if (error instanceof MongoServerError) {
-      if (error.code == 11000) { // TODO handle this error unique one 
-        console.log(11000);
+      if (error.code == 11000) {
+        return [406, "User exists."];
       }
-    } else {
-      console.log(error);
     }
-    return false;
+    return [500, "DB error."];
   }
 }
 
@@ -122,4 +119,3 @@ export async function login({
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-

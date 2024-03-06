@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lebaladna/backend/text.dart';
 import 'package:lebaladna/components/shared_components.dart';
 
+import '../pages_backend/register_user.dart';
+
 class RegisterUserPage extends StatelessWidget {
-  const RegisterUserPage({super.key});
+  final username = TextEditingController();
+  final password = TextEditingController();
+
+  RegisterUserPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final username = TextEditingController();
-    final password = TextEditingController();
     final width = MediaQuery.of(context).size.width;
     double maxWidth = width * 0.9;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(title: const Text(textRegisterUser), centerTitle: true),
@@ -26,13 +31,21 @@ class RegisterUserPage extends StatelessWidget {
                 ),
                 FormTextField(
                   controller: password,
-                  onSubmitted: () => {},
+                  onSubmitted: () => registerUserButton(
+                    context: context,
+                    name: username.text,
+                    password: password.text,
+                  ),
                   labelText: textPassword,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 16, bottom: 32),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => registerUserButton(
+                      context: context,
+                      name: username.text,
+                      password: password.text,
+                    ),
                     child: const Text(textRegister),
                   ),
                 )

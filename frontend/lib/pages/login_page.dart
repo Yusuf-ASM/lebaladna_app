@@ -6,10 +6,10 @@ import '../components/auth/text_field.dart';
 import 'pages_backend/login.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
-
   final username = TextEditingController();
   final password = TextEditingController();
+
+  LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {

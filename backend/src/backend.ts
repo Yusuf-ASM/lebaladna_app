@@ -20,10 +20,13 @@ export async function registerUserBackend(req: Request, res: Response) {
 
   if (checkingResult[0] == 200) {
     let result = await db.registerUser(body);
-    if (result) {
+    console.log(result);
+    if (!Array.isArray(result) && result) {
       res.send(result);
+    } else if (!result) {
+      res.status(500).send({ error: "Could not register the user." });
     } else {
-      res.sendStatus(401);
+      res.status(result[0] as number).send({ error: result[1] });
     }
   } else {
     res.status(checkingResult[0]).send({ error: checkingResult[1] });
