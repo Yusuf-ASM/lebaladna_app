@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/home_page.dart';
-import 'package:frontend/pages/login_page.dart';
+import 'package:lebaladna/pages/home_page.dart';
+import 'package:lebaladna/pages/login_page.dart';
 
 import '../../backend/custom_functions.dart';
 import '../../backend/shared_variables.dart';

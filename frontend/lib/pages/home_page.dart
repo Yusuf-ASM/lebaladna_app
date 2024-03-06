@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/backend/text.dart';
-import 'package:frontend/components/shared_components.dart';
-import 'package:frontend/pages/register/register_meal.dart';
-import 'package:frontend/pages/register/register_user.dart';
+import 'package:lebaladna/backend/text.dart';
+import 'package:lebaladna/components/shared_components.dart';
+import 'package:lebaladna/pages/register/register_meal.dart';
+import 'package:lebaladna/pages/register/register_user.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../backend/custom_functions.dart';

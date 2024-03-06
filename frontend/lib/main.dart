@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/intro_page.dart';
+import 'package:lebaladna/pages/intro_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'backend/shared_variables.dart';

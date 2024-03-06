@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/backend/text.dart';
-import 'package:frontend/components/shared_components.dart';
+import 'package:lebaladna/backend/text.dart';
+import 'package:lebaladna/components/shared_components.dart';
 
 class RegisterMealPage extends StatelessWidget {
   const RegisterMealPage({super.key});

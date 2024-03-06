@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/backend/text.dart';
+import 'package:lebaladna/backend/text.dart';
 
 import '../../backend/custom_functions.dart';
 import '../../components/shared_components.dart';
