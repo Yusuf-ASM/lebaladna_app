@@ -49,7 +49,6 @@ Future<void> initializing() async {
     }
   }
   writeLog("IntroPage - Initializing", "Done Initializing String keys");
-
   for (var key in booleanKeys) {
     if (box.get(key) == null) {
       box.put(key, false);

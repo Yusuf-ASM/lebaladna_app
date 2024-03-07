@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lebaladna/backend/text.dart';
 import 'package:lebaladna/components/shared_components.dart';
+import 'package:lebaladna/pages/register/register_campaign.dart';
+import 'package:lebaladna/pages/register/register_ingredient.dart';
 import 'package:lebaladna/pages/register/register_meal.dart';
 import 'package:lebaladna/pages/register/register_user.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -10,7 +12,10 @@ import '../backend/custom_functions.dart';
 import '../backend/shared_variables.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final notifier = VariableNotifier();
+  
+  HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -53,9 +58,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
+                const SizedBox(height: 16),
                 ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: maxWidth, minWidth: maxWidth),
                   child: const Card(
@@ -125,9 +128,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
+                const SizedBox(height: 16),
                 ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: maxWidth, minWidth: maxWidth),
                   child: Card(
@@ -209,9 +210,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
+                const SizedBox(height: 16),
                 ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: maxWidth, minWidth: maxWidth),
                   child: Card(
@@ -255,7 +254,8 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                )
+                ),
+                const SizedBox(height: 16),
               ],
             ),
           ),
@@ -302,12 +302,34 @@ Drawer drawer(BuildContext context) {
                 },
               ),
               DrawerIconButton(
+                text: textCreateCampaign,
+                icon: Icons.campaign,
+                pressFunction: () {
+                  Navigator.of(context).push(
+                    CupertinoPageRoute(
+                      builder: (context) => RegisterCampaignPage(),
+                    ),
+                  );
+                },
+              ),
+              DrawerIconButton(
+                text: textCreateIngredient,
+                icon: Icons.local_grocery_store_rounded,
+                pressFunction: () {
+                  Navigator.of(context).push(
+                    CupertinoPageRoute(
+                      builder: (context) => RegisterIngredientPage(),
+                    ),
+                  );
+                },
+              ),
+              DrawerIconButton(
                 text: textCreateMeal,
                 icon: Icons.local_dining,
                 pressFunction: () {
                   Navigator.of(context).push(
                     CupertinoPageRoute(
-                      builder: (context) => const RegisterMealPage(),
+                      builder: (context) => RegisterMealPage(),
                     ),
                   );
                 },

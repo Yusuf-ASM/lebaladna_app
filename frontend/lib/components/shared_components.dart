@@ -123,6 +123,17 @@ IconButton datePicker(
   );
 }
 
+Theme expansionTile(BuildContext context, String title, List<Widget> children) {
+  return Theme(
+    data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+    child: ExpansionTile(
+      title: Text(title, style: const TextStyle(fontSize: SemiTextSize)),
+      childrenPadding: const EdgeInsets.symmetric(horizontal: 8),
+      children: children,
+    ),
+  );
+}
+
 class FormTextField extends StatelessWidget {
   final TextEditingController controller;
   final String labelText;

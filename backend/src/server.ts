@@ -2,7 +2,7 @@ import WebSocket from "ws";
 import express from "express";
 import { getDate } from "./utility";
 import * as backend from "./backend";
-import { createIndexes } from "./db";
+import * as db from "./db";
 import cors from "cors";
 require("dotenv").config();
 const PORT = process.env.PORT || "8080";
@@ -33,6 +33,10 @@ admin.post("/register_user", async (req, res) => {
   await backend.registerUserBackend(req, res);
 });
 
+admin.get("/get_users", async (req, res) => {
+  res.send(await db.getUsers());
+});
+
 app.post("/login", async (req, res) => {
   await backend.loginBackend(req, res);
 });
@@ -46,7 +50,7 @@ app.all("*", (req, res) => {
 });
 
 const server = app.listen(PORT, async () => {
-  await createIndexes();
+  await db.createIndexes();
   console.log("Running: 8080");
   console.log(getDate(true));
 });

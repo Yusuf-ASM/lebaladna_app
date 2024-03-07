@@ -17,7 +17,6 @@ Future<void> registerUserButton({
     final response = await registerUser({"name": name, "password": password});
     if (context.mounted) {
       Navigator.of(context).pop();
-      print(response);
       if (response[0] == 200) {
         snackBar("Done :)", context);
       } else {

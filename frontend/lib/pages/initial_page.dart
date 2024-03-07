@@ -11,15 +11,13 @@ class InitialPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final signInStateNotifier = UserStateNotifier();
-    // TODO remove in production
-    // box.put("signed", false);
     return ListenableBuilder(
       listenable: signInStateNotifier,
       builder: (context, child) {
         if (box.get("signed")) {
           headers["_id"] = box.get("_id");
           headers["token"] = box.get("token");
-          return const HomePage();
+          return HomePage();
         }
         return LoginPage();
       },
