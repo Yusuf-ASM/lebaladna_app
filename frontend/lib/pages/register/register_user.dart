@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lebaladna/backend/text.dart';
 import 'package:lebaladna/components/shared_components.dart';
 
-import '../pages_backend/register_user.dart';
+import '../pages_backend/register.dart';
 
 class RegisterUserPage extends StatelessWidget {
   final username = TextEditingController();

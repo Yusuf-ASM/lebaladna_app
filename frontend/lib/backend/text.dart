@@ -21,4 +21,4 @@ const textKitchenLeader = "Kitchen Leader";
 const textMeals = "Meals";
 const textMealName = "Meal Name";
 const textIngredientName = "Ingredient Name";
-const textIngredientMeasure = "Ingredient Measurement Unit";
+const textIngredientMeasure = "Measurement Unit";

@@ -7,10 +7,7 @@ const TelecomCompaniesNumbers = ["0", "1", "2", "5"];
 
 //okie
 export function hashPassword(password: string): string {
-  let hashedPassword = crypto
-    .createHmac("sha256", password)
-    .digest()
-    .toString("hex");
+  let hashedPassword = crypto.createHmac("sha256", password).digest().toString("hex");
   return hashedPassword;
 }
 
@@ -27,21 +24,14 @@ export function checkPassword({
   requestPassword: string;
   hashedPassword: string;
 }): boolean {
-  requestPassword = crypto
-    .createHmac("sha256", requestPassword)
-    .digest()
-    .toString("hex");
+  requestPassword = crypto.createHmac("sha256", requestPassword).digest().toString("hex");
   return requestPassword === hashedPassword;
 }
 
 //okie
 export function isValidEmail(email: string): boolean {
   let splittedEmail = email.split("@");
-  if (
-    splittedEmail.length === 2 &&
-    splittedEmail[0] !== "" &&
-    splittedEmail[1] !== ""
-  ) {
+  if (splittedEmail.length === 2 && splittedEmail[0] !== "" && splittedEmail[1] !== "") {
     return true;
   }
   return false;
@@ -124,28 +114,25 @@ export function getDateEpoch() {
   return Math.floor(date / 1000);
 }
 
+//separate type checking from object key checking
 export function checkParameter({
   body,
   strings = [],
   numbers = [],
-  times = [],
   booleans = [],
   objectIds = [],
-  phoneNumbers = [],
   constants = [],
-  dates = [],
   jsons = {},
+  arrays = [],
 }: {
   body: { [key: string]: any };
   strings?: string[];
-  times?: string[];
   numbers?: string[];
   booleans?: string[];
   objectIds?: string[];
-  phoneNumbers?: string[];
-  dates?: (string | number)[];
   constants?: (any | any[])[][];
   jsons?: { [key: string]: (string | string[])[][] };
+  arrays?: any[][];
 }): [number, string] {
   if (strings.length != 0) {
     for (const key of strings) {
@@ -157,40 +144,11 @@ export function checkParameter({
     }
   }
 
-  if (phoneNumbers.length != 0) {
-    for (const key of phoneNumbers) {
-      if (!body.hasOwnProperty(key)) {
-        return [400, "Missing " + key];
-      } else if (
-        typeof body[key] !== "string" ||
-        !isValidPhoneNumber(body[key])
-      ) {
-        console.log(body[key]);
-
-        return [400, "Invalid  " + key];
-      }
-    }
-  }
-
   if (numbers.length != 0) {
     for (const key of numbers) {
       if (!body.hasOwnProperty(key)) {
         return [400, "Missing " + key];
       } else if (typeof body[key] !== "number" || body[key] < 0) {
-        return [400, "Invalid  " + key];
-      }
-    }
-  }
-
-  if (times.length != 0) {
-    for (const key of times) {
-      if (!body.hasOwnProperty(key)) {
-        return [400, "Missing " + key];
-      } else if (
-        typeof body[key] !== "number" ||
-        body.endingTime < 8 ||
-        body.endingTime > 22
-      ) {
         return [400, "Invalid  " + key];
       }
     }
@@ -208,7 +166,7 @@ export function checkParameter({
 
   if (objectIds.length != 0) {
     for (const key of objectIds) {
-      if (!body.hasOwnProperty(key) || body[key] === "") {
+      if (!body.hasOwnProperty(key)) {
         return [400, "Missing " + key];
       } else if (typeof body[key] !== "string" || !isValidObjectId(body[key])) {
         return [400, "Invalid  " + key];
@@ -269,16 +227,17 @@ export function checkParameter({
     }
   }
 
-  if (dates.length != 0) {
-    for (const key of dates) {
-      if (!body.hasOwnProperty(key)) {
+  if (arrays.length != 0) {
+    for (const array of arrays) {
+      const key = array[0];
+      const type = array[1];
+      if (!body.hasOwnProperty(key) || array[2].length == 0) {
         return [400, "Missing " + key];
       }
-      if (
-        (typeof body[key] !== "string" && typeof body[key] !== "number") ||
-        !isValidDate(body[key])
-      ) {
-        return [400, "Invalid " + key];
+      for (const element of array[2]) {
+        if (typeof element !== "string" || !isValidObjectId(element)) {
+          return [400, "Invalid " + key];
+        }
       }
     }
   }
@@ -305,14 +264,7 @@ export function isValidDateString(date: string) {
   let month = dateNumber[1];
   let day = dateNumber[2];
 
-  if (
-    year < 2020 ||
-    year > 2100 ||
-    month < 1 ||
-    month > 12 ||
-    day < 1 ||
-    day > 31
-  ) {
+  if (year < 2020 || year > 2100 || month < 1 || month > 12 || day < 1 || day > 31) {
     return false;
   }
 
@@ -321,11 +273,7 @@ export function isValidDateString(date: string) {
 
 export function isValidDateNumber(date: number) {
   let dateString = date.toString();
-  if (
-    typeof date !== "number" ||
-    !isInt(dateString) ||
-    dateString.length != 10
-  ) {
+  if (typeof date !== "number" || !isInt(dateString) || dateString.length != 10) {
     return false;
   }
   return date > 1577829600 && date < 4102437600;

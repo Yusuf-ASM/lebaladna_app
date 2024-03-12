@@ -134,6 +134,31 @@ Theme expansionTile(BuildContext context, String title, List<Widget> children) {
   );
 }
 
+Padding progressText(int quantity, String unit, String meal) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 16, top: 8),
+    child: Wrap(
+      spacing: 32,
+      direction: Axis.horizontal,
+      children: [
+        Column(
+          children: [
+            Text(
+              quantity.toString(),
+              style: const TextStyle(fontSize: BigTextSize),
+            ),
+            Text(
+              "$unit\n$meal",
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: SemiTextSize),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
 class FormTextField extends StatelessWidget {
   final TextEditingController controller;
   final String labelText;
@@ -153,13 +178,12 @@ class FormTextField extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            // mainAxisAlignment: RTL ? MainAxisAlignment.end : MainAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: Text(
                   labelText,
-                  style: const TextStyle(fontSize: NormalTextSize),
+                  style: const TextStyle(fontSize: SemiTextSize),
                 ),
               ),
             ],
@@ -178,7 +202,6 @@ class FormTextField extends StatelessWidget {
                 borderSide: const BorderSide(color: Color.fromARGB(255, 20, 137, 255), width: 1.1),
                 borderRadius: BorderRadius.circular(TextFieldBorderRadius),
               ),
-              // hintText: hintText,
             ),
           ),
         ],
@@ -208,7 +231,6 @@ class FormAutoComplete extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            // mainAxisAlignment: RTL ? MainAxisAlignment.end : MainAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8),

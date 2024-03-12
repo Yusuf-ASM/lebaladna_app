@@ -13,8 +13,9 @@ import '../backend/shared_variables.dart';
 
 class HomePage extends StatelessWidget {
   final notifier = VariableNotifier();
-  
+
   HomePage({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -329,74 +330,11 @@ Drawer drawer(BuildContext context) {
                 pressFunction: () {
                   Navigator.of(context).push(
                     CupertinoPageRoute(
-                      builder: (context) => RegisterMealPage(),
+                      builder: (context) => const RegisterMealPage(),
                     ),
                   );
                 },
               ),
-
-              // DrawerIconButton(
-              //   text: "textRegisterBranch",
-              //   icon: Icons.storefront,
-              //   pressFunction: () async {
-              //     // final controller = TextEditingController();
-              //     // final localNotifier = VariableNotifier();
-              //     // bool clicked = false;
-              //     // bool response = false;
-              //     // showDialog(
-              //     //   context: context,
-              //     //   builder: (BuildContext context) => AlertDialog(
-              //     //     title: const Text(
-              //     //       textRegisterBranch,
-              //     //       textDirection: TD,
-              //     //     ),
-              //     //     content: Column(
-              //     //       mainAxisSize: MainAxisSize.min,
-              //     //       children: [
-              //     //         FormTextField(
-              //     //           controller: controller,
-              //     //           onSubmitted: () => addBranchButton(context, controller.text).then(
-              //     //             (value) {
-              //     //               response = value;
-              //     //               localNotifier.change();
-              //     //               clicked = true;
-              //     //             },
-              //     //           ),
-              //     //           labelText: textBranch,
-              //     //         ),
-              //     //         ListenableBuilder(
-              //     //           listenable: localNotifier,
-              //     //           builder: (context, child) {
-              //     //             String result = "";
-              //     //             if (!response && clicked) {
-              //     //               result = textRegistrationFailed;
-              //     //             } else if (clicked) {
-              //     //               result = textSuccessfulRegistration;
-              //     //             }
-              //     //             return Text(
-              //     //               result,
-              //     //               style: const TextStyle(fontSize: NormalTextSize),
-              //     //             );
-              //     //           },
-              //     //         )
-              //     //       ],
-              //     //     ),
-              //     //     actions: [
-              //     //       TextButton(
-              //     //         onPressed: () => addBranchButton(context, controller.text).then(
-              //     //           (value) {
-              //     //             response = value;
-              //     //             localNotifier.change();
-              //     //             clicked = true;
-              //     //           },
-              //     //         ),
-              //     //         child: const Text(textRegister),
-              //     //       ),
-              //     //     ],
-              //     //   ),
-              //     // );
-              //   },
-              // ),
             ],
           ),
         ),

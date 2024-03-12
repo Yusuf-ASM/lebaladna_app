@@ -78,7 +78,6 @@ class _AboutUsSwitchV2State extends State<AboutUsSwitchV2> {
 
   @override
   Widget build(BuildContext context) {
-    widget.callback(switchValue);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
@@ -97,9 +96,9 @@ class _AboutUsSwitchV2State extends State<AboutUsSwitchV2> {
             value: switchValue,
             onChanged: (value) {
               setState(() => switchValue = !switchValue);
+              widget.callback(switchValue);
             },
           ),
-          
         ],
       ),
     );

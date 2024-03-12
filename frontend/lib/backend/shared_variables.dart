@@ -2,8 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
-const BackendLink = "http://192.168.3.200:8080";
+const BackendLink = "http://127.0.0.1:8080";
+const webSocketLink = "ws://127.0.0.1:8080/ws";
+WebSocketChannel? channel;
+// const BackendLink = "http://192.168.3.200:8080";
 const Testing = true;
 const TextFieldBorderRadius = 15.0;
 const NormalTextSize = 16.0;
