@@ -10,7 +10,7 @@ import {
   User,
   User_id,
   json,
-} from "schema";
+} from "./schema";
 import { generateToken, getDate, getDateEpoch, hashPassword } from "./utility";
 
 require("dotenv").config();
@@ -272,7 +272,10 @@ export async function addMeal({
     //     [meal]: quantity,
     //   },
     // },
-    $inc: { [`meals.${meal}.cooked`]: quantity, [`stationsReport.${name}.meals.${meal}`]: quantity },
+    $inc: {
+      [`meals.${meal}.cooked`]: quantity,
+      [`stationsReport.${name}.meals.${meal}`]: quantity,
+    },
   });
   console.log(res);
 }

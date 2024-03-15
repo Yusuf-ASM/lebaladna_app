@@ -1,25 +1,26 @@
 import WebSocket from "ws";
 import express from "express";
-import { getDate } from "./utility";
-import * as backend from "./backend";
-import * as db from "./db";
+import { getDate } from "./helper/utility";
+import * as backend from "./helper/backend";
+import * as db from "./helper/db";
 import cors from "cors";
+import { admin } from "./routes/adminRouter";
+import { facilitator } from "./routes/facilitatorRouter";
+import { kitchen } from "./routes/kitchenRouter";
+import { station } from "./routes/stationRouter";
+
 require("dotenv").config();
 const PORT = process.env.PORT || "8080";
 
 const app = express();
-const admin = express.Router();
-const facilitator = express.Router();
-const station = express.Router();
-const kitchen = express.Router();
 
 const wss = new WebSocket.Server({ noServer: true, path: "/ws" });
 
-/*
-- station leader will add dish and it should be pushed to db 
-- if facilitator accept any thing this thing should be pushed to database
-- my role function :)
-*/
+// /*
+// - station leader will add dish and it should be pushed to db
+// - if facilitator accept any thing this thing should be pushed to database
+// - my role function :)
+// */
 
 app.use(express.json());
 app.use(cors());
@@ -30,67 +31,16 @@ app.use("/station", station);
 app.use("/kitchen", kitchen);
 
 //okie
-admin.post("/register_user", async (req, res) => {
-  await backend.registerUserBackend(req, res);
-});
 
-//okie
-admin.post("/register_ingredient", async (req, res) => {
-  await backend.registerIngredientBackend(req, res);
-});
-
-//okie
-admin.post("/register_meal", async (req, res) => {
-  await backend.registerMealBackend(req, res);
-});
-
-//okie
-admin.post("/register_campaign", async (req, res) => {
-  await backend.registerCampaignBackend(req, res);
-});
-
-admin.get("/get_ingredients", async (req, res) => {
-  res.send(await db.getIngredients());
-});
-
-admin.get("/get_meals", async (req, res) => {
-  res.send(await db.getMeals());
-});
-
-admin.get("/get_users", async (req, res) => {
-  res.send(await db.getUsers());
-});
-
-app.post("/add_ingredient", async (req, res) => {
-  await backend.addIngredientBackend(req, res);
-});
-
-app.post("/add_meal", async (req, res) => {
-  await backend.addMealBackend(req, res);
-});
-
-app.get("/get_campaign", async (req, res) => {
+app.get("/campaign", async (req, res) => {
   await backend.getCampaignBackend(req, res);
 });
 
-app.post("/get_user_campaign", async (req, res) => {
+app.post("/user_campaign", async (req, res) => {
   await backend.getUserCampaignsBackend(req, res);
 });
 
-app.post("/get_station_progress", async (req, res) => {
-  await backend.getStationProgressBackend(req, res);
-});
-app.post("/get_kitchen_progress", async (req, res) => {
-  await backend.getKitchenProgressBackend(req, res);
-});
-
 app.get("/test", async (req, res) => {
-  // await db.addMeal({
-  //   campaignId: "65ecbbca43cf6bed9a2f0ddd",
-  //   meal: "potato",
-  //   quantity: 10,
-  //   userId: "65ecbbca43cf6bed9a2f0ddd",
-  // });
   res.send();
 });
 

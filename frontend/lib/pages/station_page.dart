@@ -11,7 +11,8 @@ class StationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final notifier = VariableNotifier();
+    final station = VariableNotifier();
+    final kitchen = VariableNotifier();
     final width = MediaQuery.of(context).size.width;
     final loading = LoadingStateNotifier();
     Map meals = {};
@@ -23,7 +24,6 @@ class StationPage extends StatelessWidget {
     if (channel != null) {
       channel!.stream.listen((event) {
         if (event == "station") {
-          print("station");
           //TODO check campaign id :)
           stationDashboardData(campaignId).then((value) {
             if (value.isNotEmpty) {
@@ -38,7 +38,7 @@ class StationPage extends StatelessWidget {
               ingredients.forEach((key, value) {
                 ingredientsWidget.add(progressText(value, key, ""));
               });
-              notifier.change();
+              station.change();
             }
           });
         }
@@ -50,11 +50,9 @@ class StationPage extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () async {
-            final plateNotifier = VariableNotifier();
             final quantityNotifier = VariableNotifier();
 
             String ingredient = "";
-            int plate = 0;
             int quantity = 0;
 
             return await showDialog(
@@ -172,7 +170,7 @@ class StationPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ListenableBuilder(
-                        listenable: notifier,
+                        listenable: station,
                         builder: (context, child) {
                           return ConstrainedBox(
                             constraints: BoxConstraints(maxWidth: maxWidth, minWidth: maxWidth),
@@ -205,7 +203,7 @@ class StationPage extends StatelessWidget {
                         }),
                     const SizedBox(height: 16),
                     ListenableBuilder(
-                        listenable: notifier,
+                        listenable: kitchen,
                         builder: (context, child) {
                           return ConstrainedBox(
                             constraints: BoxConstraints(maxWidth: maxWidth, minWidth: maxWidth),

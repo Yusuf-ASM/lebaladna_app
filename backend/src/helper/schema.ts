@@ -1,3 +1,4 @@
+import Joi from "joi";
 import { ObjectId } from "mongodb";
 import { WebSocket } from "ws";
 export type json = { [key: string]: any };
@@ -23,6 +24,11 @@ export interface Ingredient_id extends Ingredient {
   _id: ObjectId;
 }
 
+export const Ingredient = Joi.object({
+  name: Joi.string().trim().required(),
+  measureUnit: Joi.string().trim().required(),
+});
+
 export interface IngredientRequest {
   stationId: ObjectId;
   ingredient: string;
@@ -41,6 +47,13 @@ export interface Meal_id extends Meal {
   _id: ObjectId;
 }
 
+export const Meal = Joi.object({
+  name: Joi.string().trim().required(),
+  target: Joi.number().required(),
+  cooked: Joi.number().required(),
+  ingredients: Joi.array().items(Ingredient),
+});
+
 export interface Campaign {
   name: string; // okie
   meals: { [key: string]: Meal_id }; // make it json better {rice : [100,prepared], meat : [200,prepared]}
@@ -58,16 +71,6 @@ export interface StationReport {
   temp: json;
   report: json;
 }
-
-// let Campaign = {
-//   s1: {
-//     temp :{
-//       rice: 15,
-//       meat:3
-//     },
-//     report: {rice:[15,16,564]},
-//   },
-// };
 
 export interface Campaign_id extends Campaign {
   _id: ObjectId;
