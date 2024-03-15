@@ -7,9 +7,9 @@ import { notify } from "../helper/backend";
 export async function addMealBackend(req: Request, res: Response) {
   const body = req.body;
 
-  // TODO campaignId is missing
+  // TODO campaignId validation is missing
   const schema = Joi.object({
-    password: Joi.string().trim().required(),
+    campaignId: Joi.string().trim().required(),
     name: Joi.string().trim().required(),
     meal: Joi.string().trim().required(),
     quantity: Joi.number().required(),

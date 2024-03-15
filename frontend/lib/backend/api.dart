@@ -25,7 +25,7 @@ Future<List> login(Map<String, dynamic> body) async {
 Future<List> registerUser(Map<String, dynamic> body) async {
   Dio dio = Dio();
   try {
-    final response = await dio.post("$BackendLink/admin/register/user", data: body);
+    final response = await dio.post("$AdminBackendLink/register/user", data: body);
     dio.close();
     return [200, response.data];
   } on DioException catch (error) {
@@ -44,7 +44,7 @@ Future<List> registerUser(Map<String, dynamic> body) async {
 Future<List> registerIngredient(Map<String, dynamic> body) async {
   Dio dio = Dio();
   try {
-    final response = await dio.post("$BackendLink/admin/register/ingredient", data: body);
+    final response = await dio.post("$AdminBackendLink/register/ingredient", data: body);
     dio.close();
     return [200, response.data];
   } on DioException catch (error) {
@@ -63,7 +63,7 @@ Future<List> registerIngredient(Map<String, dynamic> body) async {
 Future<List> registerMeal(Map<String, dynamic> body) async {
   Dio dio = Dio();
   try {
-    final response = await dio.post("$BackendLink/admin/register/meal", data: body);
+    final response = await dio.post("$AdminBackendLink/register/meal", data: body);
     dio.close();
     return [200, response.data];
   } on DioException catch (error) {
@@ -82,7 +82,7 @@ Future<List> registerMeal(Map<String, dynamic> body) async {
 Future<List> registerCampaign(Map<String, dynamic> body) async {
   Dio dio = Dio();
   try {
-    final response = await dio.post("$BackendLink/admin/register/campaign", data: body);
+    final response = await dio.post("$AdminBackendLink/register/campaign", data: body);
     dio.close();
     return [200, response.data];
   } on DioException catch (error) {
@@ -101,7 +101,7 @@ Future<List> registerCampaign(Map<String, dynamic> body) async {
 Future<List> getUsers() async {
   Dio dio = Dio();
   try {
-    final response = await dio.get("$BackendLink/admin/users");
+    final response = await dio.get("$AdminBackendLink/users");
     dio.close();
     return [200, response.data];
   } on DioException catch (error) {
@@ -120,7 +120,7 @@ Future<List> getUsers() async {
 Future<List> getMeals() async {
   Dio dio = Dio();
   try {
-    final response = await dio.get("$BackendLink/admin/meals");
+    final response = await dio.get("$AdminBackendLink/meals");
     dio.close();
     return [200, response.data];
   } on DioException catch (error) {
@@ -197,7 +197,7 @@ Future<List> getKitchenProgress(Map body) async {
 Future<List> getIngredients() async {
   Dio dio = Dio();
   try {
-    final response = await dio.get("$BackendLink/admin/ingredients");
+    final response = await dio.get("$AdminBackendLink/ingredients");
     dio.close();
     return [200, response.data];
   } on DioException catch (error) {
@@ -216,7 +216,7 @@ Future<List> getIngredients() async {
 Future<List> addIngredient(Map body) async {
   Dio dio = Dio();
   try {
-    final response = await dio.post("$BackendLink/add/ingredient", data: body);
+    final response = await dio.post("$KitchenBackendLink/add/ingredient", data: body);
     dio.close();
     return [200, response.data];
   } on DioException catch (error) {
@@ -235,7 +235,7 @@ Future<List> addIngredient(Map body) async {
 Future<List> addMeal(Map body) async {
   Dio dio = Dio();
   try {
-    final response = await dio.post("$BackendLink/add/Meal", data: body);
+    final response = await dio.post("$StationBackendLink/add/Meal", data: body);
     dio.close();
     return [200, response.data];
   } on DioException catch (error) {

@@ -24,6 +24,7 @@ class StationPage extends StatelessWidget {
     if (channel != null) {
       channel!.stream.listen((event) {
         if (event == "station") {
+          print("object");
           //TODO check campaign id :)
           stationDashboardData(campaignId).then((value) {
             if (value.isNotEmpty) {
