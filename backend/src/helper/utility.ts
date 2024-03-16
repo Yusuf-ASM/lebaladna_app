@@ -291,3 +291,8 @@ export function isValidDate(date: string | number) {
 export function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+export function joiObjectId(value: any, helper: any) {
+  if (isValidObjectId(value)) return value;
+  return helper.message("Not a valid ObjectId");
+}

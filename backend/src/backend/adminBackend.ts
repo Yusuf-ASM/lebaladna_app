@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import * as utility from "../helper/utility";
 import * as db from "../helper/db";
 import Joi from "joi";
+import { Meal } from "../helper/schema";
 
 export async function registerUserBackend(req: Request, res: Response) {
   const body = req.body;
@@ -55,18 +56,15 @@ export async function registerIngredientBackend(req: Request, res: Response) {
 
 export async function registerMealBackend(req: Request, res: Response) {
   const body = req.body;
+  console.log(body);
 
   if (Object.keys(body).length == 0) {
     res.status(400).send({ error: "Empty Body" });
     return;
   }
 
-  const schema = Joi.object({
-    name: Joi.string().trim().required(),
 
-  });
-
-  let validationResult = schema.validate(body);
+  let validationResult = Meal.validate(body);
   // TODO need to check ingredient data
 
   if (validationResult.error === undefined) {
