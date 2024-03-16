@@ -63,9 +63,7 @@ export async function registerMealBackend(req: Request, res: Response) {
     return;
   }
 
-
   let validationResult = Meal.validate(body);
-  // TODO need to check ingredient data
 
   if (validationResult.error === undefined) {
     let result = await db.registerMeal(body);
@@ -114,4 +112,18 @@ export async function registerCampaignBackend(req: Request, res: Response) {
   } else {
     res.status(400).send({ error: validationResult.error.message });
   }
+}
+
+export async function getCampaignsBackend(req: Request, res: Response) {
+  let result = await db.getCampaigns();
+  res.send(result);
+  console.log("getCampaignsBackend:");
+  console.log(result);
+}
+
+export async function getCampaignsReportBackend(req: Request, res: Response) {
+  let result = await db.getCampaigns();
+  res.send(result);
+  console.log("getCampaignsBackend:");
+  console.log(result);
 }
