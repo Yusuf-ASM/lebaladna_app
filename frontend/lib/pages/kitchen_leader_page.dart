@@ -25,8 +25,9 @@ class KitchenLeaderPage extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     double maxWidth = width * 0.9;
     if (channel != null) {
-      channel!.stream.listen((event) {
-        if (event == "kitchen") {//TODO check campaign id :)
+      channel!.stream.asBroadcastStream().listen((event) {
+        if (event == "kitchen") {
+          //TODO check campaign id :)
           kitchenDashboardData(campaignId).then((value) {
             if (value.isNotEmpty) {
               response = value;

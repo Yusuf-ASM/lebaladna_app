@@ -25,7 +25,7 @@ Future<void> loginButton({
         box.put("name", name);
         box.put("_id", response[1]['_id']);
         box.put("token", response[1]['token']);
-        channel = WebSocketChannel.connect(Uri.parse(webSocketLink));
+        connectWebSocket();
         signInStateNotifier.login();
       } else {
         snackBar(response[1], context);

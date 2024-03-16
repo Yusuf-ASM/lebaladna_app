@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lebaladna/backend/custom_functions.dart';
@@ -33,7 +32,8 @@ class CampaignsPage extends StatelessWidget {
                 return loadingIndicator();
               } else if (response.isEmpty) {
                 return const Center(
-                    child: Text("Error :(", style: TextStyle(fontSize: BigTextSize)));
+                  child: Text("Error :(", style: TextStyle(fontSize: BigTextSize)),
+                );
               }
               return ListView.builder(
                 itemCount: response.length,
@@ -47,8 +47,10 @@ class CampaignsPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                       child: GestureDetector(
                         onTap: () async {
+                          loadingIndicatorDialog(context);
+                          connectWebSocket();
+                          Navigator.of(context).pop();
                           if (role == "kitchen") {
-                            
                             Navigator.of(context).push(
                               CupertinoPageRoute(
                                 builder: (context) => KitchenLeaderPage(

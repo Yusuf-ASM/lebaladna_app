@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/cupertino.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'shared_variables.dart';
 import 'package:dio/dio.dart';
@@ -84,4 +85,7 @@ class VariableNotifier<T> with ChangeNotifier {
 int currentTimeEpoch() {
   final now = DateTime.now();
   return DateTime(now.year, now.month, now.day, 2).millisecondsSinceEpoch ~/ 1000;
+}
+void connectWebSocket()  {
+  channel ??= WebSocketChannel.connect(Uri.parse(webSocketLink));
 }

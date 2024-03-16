@@ -8,7 +8,6 @@ import 'pages_backend/station.dart';
 class StationPage extends StatelessWidget {
   final String campaignId;
   const StationPage({super.key, required this.campaignId});
-
   @override
   Widget build(BuildContext context) {
     final station = VariableNotifier();
@@ -22,7 +21,7 @@ class StationPage extends StatelessWidget {
     double maxWidth = width * 0.9;
     Map response = {};
     if (channel != null) {
-      channel!.stream.listen((event) {
+      channel!.stream.asBroadcastStream().listen((event) {
         if (event == "station") {
           //TODO check campaign id :)
           stationDashboardData(campaignId).then((value) {
