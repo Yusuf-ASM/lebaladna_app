@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lebaladna/backend/shared_variables.dart';
 
-import '../../backend/api.dart';
+import '../../backend/api/station_api.dart';
 import '../../components/shared_components.dart';
 
 Future<List> stationDashboardData(String campaignId) async {

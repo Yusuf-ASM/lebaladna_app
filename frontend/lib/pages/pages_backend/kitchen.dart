@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../backend/api.dart';
+import '../../backend/api/kitchen_api.dart';
+import '../../backend/api/admin_api.dart';
 import '../../components/shared_components.dart';
 
 Future<List> kitchenDashboardData(String campaignId) async {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lebaladna/backend/text.dart';
 
-import '../../backend/api.dart';
+import '../../backend/api/admin_api.dart';
 import '../../components/shared_components.dart';
 
 Future<void> registerUserButton({

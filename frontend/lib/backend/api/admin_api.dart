@@ -1,26 +1,7 @@
 import 'package:dio/dio.dart';
 
-import 'shared_variables.dart';
-import 'custom_functions.dart';
-
-Future<List> login(Map<String, dynamic> body) async {
-  Dio dio = Dio();
-  try {
-    final response = await dio.post("$BackendLink/login", data: body);
-    dio.close();
-    return [200, response.data];
-  } on DioException catch (error) {
-    List response = [-1, error.message];
-    dio.close();
-    if (error.response != null) {
-      writeError("login", "${error.response!.statusCode} - ${error.response!.data}");
-      response = [error.response!.statusCode, error.response!.data["error"]];
-    } else {
-      writeError("login", error);
-    }
-    return response;
-  }
-}
+import '../shared_variables.dart';
+import '../custom_functions.dart';
 
 Future<List> registerUser(Map<String, dynamic> body) async {
   Dio dio = Dio();
@@ -136,64 +117,6 @@ Future<List> getMeals() async {
   }
 }
 
-Future<List> getUserCampaigns() async {
-  Dio dio = Dio();
-  final body = {"_id": box.get("_id"), "activated": true};
-  try {
-    final response = await dio.post("$BackendLink/user_campaign", data: body);
-    dio.close();
-    return [200, response.data];
-  } on DioException catch (error) {
-    List response = [-1, error.message];
-    dio.close();
-    if (error.response != null) {
-      writeError("getUserCampaigns", "${error.response!.statusCode} - ${error.response!.data}");
-      response = [error.response!.statusCode, error.response!.data["error"]];
-    } else {
-      writeError("getUserCampaigns", error);
-    }
-    return response;
-  }
-}
-
-Future<List> getStationProgress(Map body) async {
-  Dio dio = Dio();
-  try {
-    final response = await dio.post("$StationBackendLink/get_station_progress", data: body);
-    dio.close();
-    return [200, response.data];
-  } on DioException catch (error) {
-    List response = [-1, error.message];
-    dio.close();
-    if (error.response != null) {
-      writeError("getStationProgress", "${error.response!.statusCode} - ${error.response!.data}");
-      response = [error.response!.statusCode, error.response!.data["error"]];
-    } else {
-      writeError("getStationProgress", error);
-    }
-    return response;
-  }
-}
-
-Future<List> getKitchenProgress(Map body) async {
-  Dio dio = Dio();
-  try {
-    final response = await dio.post("$BackendLink/kitchen_progress", data: body);
-    dio.close();
-    return [200, response.data];
-  } on DioException catch (error) {
-    List response = [-1, error.message];
-    dio.close();
-    if (error.response != null) {
-      writeError("getKitchenProgress", "${error.response!.statusCode} - ${error.response!.data}");
-      response = [error.response!.statusCode, error.response!.data["error"]];
-    } else {
-      writeError("getKitchenProgress", error);
-    }
-    return response;
-  }
-}
-
 Future<List> getIngredients() async {
   Dio dio = Dio();
   try {
@@ -208,44 +131,6 @@ Future<List> getIngredients() async {
       response = [error.response!.statusCode, error.response!.data["error"]];
     } else {
       writeError("getIngredients", error);
-    }
-    return response;
-  }
-}
-
-Future<List> addIngredient(Map body) async {
-  Dio dio = Dio();
-  try {
-    final response = await dio.post("$KitchenBackendLink/add/ingredient", data: body);
-    dio.close();
-    return [200, response.data];
-  } on DioException catch (error) {
-    List response = [-1, error.message];
-    dio.close();
-    if (error.response != null) {
-      writeError("addIngredient", "${error.response!.statusCode} - ${error.response!.data}");
-      response = [error.response!.statusCode, error.response!.data["error"]];
-    } else {
-      writeError("addIngredient", error);
-    }
-    return response;
-  }
-}
-
-Future<List> addMeal(Map body) async {
-  Dio dio = Dio();
-  try {
-    final response = await dio.post("$StationBackendLink/add/Meal", data: body);
-    dio.close();
-    return [200, response.data];
-  } on DioException catch (error) {
-    List response = [-1, error.message];
-    dio.close();
-    if (error.response != null) {
-      writeError("addMeal", "${error.response!.statusCode} - ${error.response!.data}");
-      response = [error.response!.statusCode, error.response!.data["error"]];
-    } else {
-      writeError("addMeal", error);
     }
     return response;
   }
