@@ -129,3 +129,17 @@ export async function getCampaignsReportBackend(req: Request, res: Response) {
   console.log("getCampaignsBackend:");
   console.log(result);
 }
+
+export async function getCampaignsBackend(req: Request, res: Response) {
+  let result = await db.getCampaigns();
+  res.send(result);
+  console.log("getCampaignsBackend:");
+  console.log(result);
+}
+
+export async function getCampaignsReportBackend(req: Request, res: Response) {
+  let result = await db.getCampaigns();
+  res.send(result);
+  console.log("getCampaignsBackend:");
+  console.log(result);
+}
