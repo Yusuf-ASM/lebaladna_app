@@ -16,6 +16,7 @@ export async function addMealBackend(req: Request, res: Response) {
   });
 
   let validationResult = schema.validate(body);
+  console.log("addMealBackend:");
 
   if (validationResult.error === undefined) {
     let result = await db.addMeal(body);
@@ -23,6 +24,7 @@ export async function addMealBackend(req: Request, res: Response) {
     console.log(result);
     res.send(result);
   } else {
+    console.log(JSON.stringify(validationResult.error));
     res.status(400).send({ error: validationResult.error.message });
   }
 }
@@ -30,13 +32,13 @@ export async function addMealBackend(req: Request, res: Response) {
 export async function getStationProgressBackend(req: Request, res: Response) {
   const body = req.body;
 
-  // TODO campaignId validation is missing
   const schema = Joi.object({
-    campaignId: Joi.string().required(),
+    campaignId: utility.jObjectId.required(),
     stationName: Joi.string().required(),
   });
 
   let validationResult = schema.validate(body);
+  console.log("getStationProgressBackend:");
 
   if (validationResult.error === undefined) {
     let result = await db.getStationProgress(body);
@@ -47,6 +49,7 @@ export async function getStationProgressBackend(req: Request, res: Response) {
       res.status(404).send({ error: "Not Found" });
     }
   } else {
+    console.log(JSON.stringify(validationResult.error));
     res.status(400).send({ error: validationResult.error.message });
   }
 }

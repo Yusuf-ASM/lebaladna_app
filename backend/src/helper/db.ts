@@ -69,14 +69,7 @@ export async function login({ name, password }: { name: string; password: string
 }
 
 //okie
-export async function registerUser({
-  name,
-  password,
-}: {
-  name: string;
-  password: string;
-  permissions: Permissions;
-}) {
+export async function registerUser({ name, password }: { name: string; password: string }) {
   let user: User = {
     name: name,
     password: hashPassword(password),
@@ -390,6 +383,7 @@ export async function getCampaignReport() {
       const meal = campaign.meals[key];
       meals.push([meal.name, meal.target, meal.cooked]);
     }
+
     return [meals];
   }
   return campaign;
@@ -425,7 +419,7 @@ export async function getStationProgress({
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-export async function getKitchenProgress({ campaignId }: { campaignId: string }) {
+export async function getKitchenProgress(campaignId: string) {
   const query = { _id: new ObjectId(campaignId) };
   let result = await campaignsCollection.findOne<Campaign_id>(query);
   if (result != null) {

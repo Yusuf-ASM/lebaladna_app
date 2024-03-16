@@ -7,41 +7,39 @@ import { notify } from "../helper/backend";
 export async function addIngredientBackend(req: Request, res: Response) {
   const body = req.body;
 
-  if (Object.keys(body).length == 0) {
-    res.status(400).send({ error: "Empty Body" });
-    return;
-  }
-  const checkingResult = utility.checkParameter({
-    body: body,
-    objectIds: ["campaignId"],
-    numbers: ["quantity", "plate"],
-    strings: ["ingredient"],
+  const schema = Joi.object({
+    campaignId: utility.jObjectId.required(),
+    quantity: utility.jNumber.required(),
+    plate: utility.jNumber.required(),
+    ingredient: utility.jString.required(),
   });
 
-  if (checkingResult[0] == 200) {
+  let validationResult = schema.validate(body);
+  console.log("addIngredientBackend:");
+
+  if (validationResult.error === undefined) {
     let result = await db.addIngredient(body);
     await notify("kitchen");
     console.log(result);
     res.send(result);
   } else {
-    res.status(checkingResult[0]).send({ error: checkingResult[1] });
+    console.log(JSON.stringify(validationResult.error));
+    res.status(400).send({ error: validationResult.error.message });
   }
 }
 
 export async function getKitchenProgressBackend(req: Request, res: Response) {
-  const body = req.body;
+  const body = req.params;
 
-  if (Object.keys(body).length == 0) {
-    res.status(400).send({ error: "Empty Body" });
-    return;
-  }
-  const checkingResult = utility.checkParameter({
-    body: body,
-    objectIds: ["campaignId"],
+  const schema = Joi.object({
+    campaignId: utility.jObjectId.required(),
   });
 
-  if (checkingResult[0] == 200) {
-    let result = await db.getKitchenProgress(body);
+  let validationResult = schema.validate(body);
+  console.log("getKitchenProgressBackend:");
+
+  if (validationResult.error === undefined) {
+    let result = await db.getKitchenProgress(body.campaignId);
     console.log(result);
     if (result != null) {
       res.send(result);
@@ -49,6 +47,7 @@ export async function getKitchenProgressBackend(req: Request, res: Response) {
       res.status(404).send({ error: "Not Found" });
     }
   } else {
-    res.status(checkingResult[0]).send({ error: checkingResult[1] });
+    console.log(JSON.stringify(validationResult.error));
+    res.status(400).send({ error: validationResult.error.message });
   }
 }

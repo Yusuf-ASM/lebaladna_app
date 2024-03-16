@@ -3,6 +3,7 @@ import WebSocket from "ws";
 import { Response, Request, NextFunction } from "express";
 import * as db from "./db";
 import * as utility from "./utility";
+import Joi from "joi";
 
 export let usersWs: WebSocketJson = {};
 
@@ -10,17 +11,15 @@ export let usersWs: WebSocketJson = {};
 export async function loginBackend(req: Request, res: Response) {
   const body = req.body;
 
-  if (Object.keys(body).length == 0) {
-    res.status(400).send({ error: "Empty Body" });
-    return;
-  }
-
-  let checkingResult = utility.checkParameter({
-    body: body,
-    strings: ["password", "name"],
+  const schema = Joi.object({
+    password: utility.jString.required(),
+    name: utility.jString.required(),
   });
 
-  if (checkingResult[0] == 200) {
+  let validationResult = schema.validate(body);
+  console.log("loginBackend:");
+
+  if (validationResult.error === undefined) {
     let result = await db.login(body);
     if (result) {
       res.send(result);
@@ -28,87 +27,75 @@ export async function loginBackend(req: Request, res: Response) {
       res.status(401).send({ error: "Wrong username/password" });
     }
   } else {
-    res.status(checkingResult[0]).send({ error: checkingResult[1] });
+    console.log(JSON.stringify(validationResult.error));
+    res.status(400).send({ error: validationResult.error.message });
   }
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-
 //okie
-
 export async function requestIngredientBackend(req: Request, res: Response) {
   const body = req.body;
 
-  if (Object.keys(body).length == 0) {
-    res.status(400).send({ error: "Empty Body" });
-    return;
-  }
-  const checkingResult = utility.checkParameter({
-    body: body,
-    objectIds: ["campaignId", "stationId"],
-    numbers: ["quantity"],
-    strings: ["ingredient"],
+  const schema = Joi.object({
+    campaignId: utility.jObjectId.required(),
+    stationId: utility.jObjectId.required(),
+    numbers: utility.jNumber.required(),
+    ingredient: utility.jString.required(),
   });
 
-  if (checkingResult[0] == 200) {
+  let validationResult = schema.validate(body);
+  console.log("requestIngredientBackend:");
+
+  if (validationResult.error === undefined) {
     let result = await db.requestIngredient(body);
     console.log(result);
     res.send(result);
   } else {
-    res.status(checkingResult[0]).send({ error: checkingResult[1] });
+    console.log(JSON.stringify(validationResult.error));
+    res.status(400).send({ error: validationResult.error.message });
   }
 }
-
-///////////////////////////////////////////////////////////////////////////////////////////
-
-//okie
-
-///////////////////////////////////////////////////////////////////////////////////////////
 
 // TODO continue the function + check rest of parameters
 
 export async function getUserCampaignsBackend(req: Request, res: Response) {
   const body = req.body;
 
-  if (Object.keys(body).length == 0) {
-    res.status(400).send({ error: "Empty Body" });
-    return;
-  }
-
-  const checkingResult = utility.checkParameter({
-    body,
-    objectIds: ["_id"],
-    booleans: ["activated"],
+  const schema = Joi.object({
+    _id: utility.jObjectId.required(),
+    activated: Joi.boolean().required(),
   });
 
-  if (checkingResult[0] == 200) {
+  let validationResult = schema.validate(body);
+  console.log("getUserCampaignsBackend:");
+
+  if (validationResult.error === undefined) {
     let result = await db.getUserCampaigns(body);
     console.log(result);
     res.send(result);
   } else {
-    res.status(checkingResult[0]).send({ error: checkingResult[1] });
+    console.log(JSON.stringify(validationResult.error));
+    res.status(400).send({ error: validationResult.error.message });
   }
 }
 
 export async function getCampaignBackend(req: Request, res: Response) {
   const query = req.query;
 
-  if (Object.keys(query).length == 0) {
-    res.status(400).send({ error: "Empty Body" });
-    return;
-  }
-
-  const checkingResult = utility.checkParameter({
-    body: query,
-    objectIds: ["_id"],
+  const schema = Joi.object({
+    _id: utility.jObjectId.required(),
   });
 
-  if (checkingResult[0] == 200) {
+  let validationResult = schema.validate(query);
+  console.log("getCampaignBackend:");
+
+  if (validationResult.error === undefined) {
     let result = await db.getCampaign(query._id as string);
     console.log(result);
     res.send(result);
   } else {
-    res.status(checkingResult[0]).send({ error: checkingResult[1] });
+    console.log(JSON.stringify(validationResult.error));
+    res.status(400).send({ error: validationResult.error.message });
   }
 }
 
@@ -128,12 +115,13 @@ export async function getCampaignBackend(req: Request, res: Response) {
 //     strings: ["type"],
 //   });
 
-//   if (checkingResult[0] == 200) {
+//   if (validationResult.error === undefined) {
 //     let result = await db.addMeal(body);
 //     console.log(result);
 //     res.send(result);
 //   } else {
-//     res.status(checkingResult[0]).send({ error: checkingResult[1] });
+//     console.log(JSON.stringify(validationResult.error));
+// res.status(400).send({ error: validationResult.error.message });
 //   }
 // }
 

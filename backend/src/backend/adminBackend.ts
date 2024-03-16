@@ -9,15 +9,15 @@ export async function registerUserBackend(req: Request, res: Response) {
   const body = req.body;
 
   const schema = Joi.object({
-    password: Joi.string().trim().required(),
-    name: Joi.string().trim().required(),
+    password: utility.jString.required(),
+    name: utility.jString.required(),
   });
 
   let validationResult = schema.validate(body);
+  console.log("registerUserBackend:");
 
   if (validationResult.error === undefined) {
     let result = await db.registerUser(body);
-    console.log("registerUserBackend:");
     console.log(result);
     if (!Array.isArray(result) && result) {
       res.send(result);
@@ -27,6 +27,7 @@ export async function registerUserBackend(req: Request, res: Response) {
       res.status(result[0] as number).send({ error: result[1] });
     }
   } else {
+    console.log(JSON.stringify(validationResult.error));
     res.status(400).send({ error: validationResult.error.message });
   }
 }
@@ -36,15 +37,15 @@ export async function registerIngredientBackend(req: Request, res: Response) {
   const body = req.body;
 
   const schema = Joi.object({
-    name: Joi.string().trim().required(),
-    measureUnit: Joi.string().trim().required(),
+    name: utility.jString.required(),
+    measureUnit: utility.jString.required(),
   });
 
   let validationResult = schema.validate(body);
+  console.log("registerIngredientBackend:");
 
   if (validationResult.error === undefined) {
     let result = await db.registerIngredient(body);
-    console.log("registerIngredientBackend:");
     console.log(result);
     if (!Array.isArray(result) && result) {
       res.send(result);
@@ -54,6 +55,7 @@ export async function registerIngredientBackend(req: Request, res: Response) {
       res.status(result[0] as number).send({ error: result[1] });
     }
   } else {
+    console.log(JSON.stringify(validationResult.error));
     res.status(400).send({ error: validationResult.error.message });
   }
 }
@@ -61,13 +63,12 @@ export async function registerIngredientBackend(req: Request, res: Response) {
 //okie
 export async function registerMealBackend(req: Request, res: Response) {
   const body = req.body;
-  console.log(body);
 
   let validationResult = Meal.validate(body);
+  console.log("registerMealBackend:");
 
   if (validationResult.error === undefined) {
     let result = await db.registerMeal(body);
-    console.log("registerMealBackend:");
     console.log(result);
     if (!Array.isArray(result) && result) {
       res.send(result);
@@ -77,20 +78,14 @@ export async function registerMealBackend(req: Request, res: Response) {
       res.status(result[0] as number).send({ error: result[1] });
     }
   } else {
+    console.log(JSON.stringify(validationResult.error));
     res.status(400).send({ error: validationResult.error.message });
   }
 }
 
 export async function registerCampaignBackend(req: Request, res: Response) {
   const body = req.body;
-  // meals: {
-  //   'roz-kofta': {
-  //     _id: '65ef3a0236d45c9eb682eeab',
-  //     name: 'roz-kofta',
-  //     ingredients: [Array],
-  //     target: 10,
-  //     cooked: 0
-  //   }
+
   const schema = Joi.object({
     name: utility.jString.required(),
     kitchenLeader: utility.jObjectId.required(),
@@ -99,7 +94,7 @@ export async function registerCampaignBackend(req: Request, res: Response) {
   });
 
   let validationResult = schema.validate(body);
-  console.log(validationResult.error);
+  console.log("registerCampaignBackend:");
 
   if (validationResult.error === undefined) {
     let result = await db.registerCampaign(body);
@@ -112,6 +107,7 @@ export async function registerCampaignBackend(req: Request, res: Response) {
       res.status(result[0] as number).send({ error: result[1] });
     }
   } else {
+    console.log(JSON.stringify(validationResult.error));
     res.status(400).send({ error: validationResult.error.message });
   }
 }
@@ -123,20 +119,7 @@ export async function getCampaignsBackend(req: Request, res: Response) {
   console.log(result);
 }
 
-export async function getCampaignsReportBackend(req: Request, res: Response) {
-  let result = await db.getCampaigns();
-  res.send(result);
-  console.log("getCampaignsBackend:");
-  console.log(result);
-}
-
-export async function getCampaignsBackend(req: Request, res: Response) {
-  let result = await db.getCampaigns();
-  res.send(result);
-  console.log("getCampaignsBackend:");
-  console.log(result);
-}
-
+//TODO continue 
 export async function getCampaignsReportBackend(req: Request, res: Response) {
   let result = await db.getCampaigns();
   res.send(result);
