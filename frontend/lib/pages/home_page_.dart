@@ -13,9 +13,8 @@ import '../backend/shared_variables.dart';
 
 class HomePage extends StatelessWidget {
   final notifier = VariableNotifier();
-
-  HomePage({super.key});
-
+  final String campaignId;
+  HomePage({super.key, required this.campaignId});
 
   @override
   Widget build(BuildContext context) {

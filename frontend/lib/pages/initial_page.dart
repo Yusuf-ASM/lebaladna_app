@@ -18,9 +18,6 @@ class InitialPage extends StatelessWidget {
         if (box.get("signed")) {
           headers["_id"] = box.get("_id");
           headers["token"] = box.get("token");
-          if (box.get("name") == "admin") {
-            return HomePage();
-          }
           return const CampaignsPage();
         }
         return LoginPage();
