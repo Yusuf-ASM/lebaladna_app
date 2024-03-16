@@ -12,6 +12,7 @@ const KitchenBackendLink = "http://127.0.0.1:8080/kitchen";
 const StationBackendLink = "http://127.0.0.1:8080/station";
 const FacilitatorBackendLink = "http://127.0.0.1:8080/facilitator";
 WebSocketChannel? channel;
+Stream? stream;
 const Testing = true;
 const TextFieldBorderRadius = 15.0;
 const NormalTextSize = 16.0;

@@ -24,8 +24,8 @@ class KitchenLeaderPage extends StatelessWidget {
     List<Widget> repoWidgets = [];
     final width = MediaQuery.of(context).size.width;
     double maxWidth = width * 0.9;
-    if (channel != null) {
-      channel!.stream.asBroadcastStream().listen((event) {
+    if (stream != null) {
+      stream!.listen((event) {
         if (event == "kitchen") {
           //TODO check campaign id :)
           kitchenDashboardData(campaignId).then((value) {
@@ -230,7 +230,7 @@ class KitchenLeaderPage extends StatelessWidget {
 
             ingredientNames = response[0];
             progress = response[1];
-
+            writeLog("functionName", progress);
             for (final key in progress.keys) {
               final ingredient = progress[key].keys.toList();
               for (final element in ingredient) {

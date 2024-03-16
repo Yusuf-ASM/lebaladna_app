@@ -20,8 +20,8 @@ class StationPage extends StatelessWidget {
     List<Widget> ingredientsWidget = [];
     double maxWidth = width * 0.9;
     Map response = {};
-    if (channel != null) {
-      channel!.stream.asBroadcastStream().listen((event) {
+    if (stream != null) {
+      stream!.listen((event) {
         if (event == "station") {
           //TODO check campaign id :)
           stationDashboardData(campaignId).then((value) {

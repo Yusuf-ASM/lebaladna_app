@@ -5,7 +5,7 @@ import '../../backend/api/admin_api.dart';
 import '../../components/shared_components.dart';
 
 Future<List> kitchenDashboardData(String campaignId) async {
-  final kitchen = await getKitchenProgress({"campaignId": campaignId});
+  final kitchen = await getKitchenProgress(campaignId);
   final ingredients = await getIngredients();
   if (ingredients[0] == 200 && kitchen[0] == 200) {
     return [ingredients[1][0], kitchen[1]];

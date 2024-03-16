@@ -22,10 +22,10 @@ Future<List> addIngredient(Map body) async {
   }
 }
 
-Future<List> getKitchenProgress(Map body) async {
+Future<List> getKitchenProgress(String id) async {
   Dio dio = Dio();
   try {
-    final response = await dio.post("$BackendLink/kitchen_progress", data: body);
+    final response = await dio.get("$KitchenBackendLink/kitchen_progress/$id");
     dio.close();
     return [200, response.data];
   } on DioException catch (error) {

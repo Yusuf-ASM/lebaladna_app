@@ -86,6 +86,10 @@ int currentTimeEpoch() {
   final now = DateTime.now();
   return DateTime(now.year, now.month, now.day, 2).millisecondsSinceEpoch ~/ 1000;
 }
-void connectWebSocket()  {
-  channel ??= WebSocketChannel.connect(Uri.parse(webSocketLink));
+
+void connectWebSocket() {
+  if (channel == null) {
+    channel = WebSocketChannel.connect(Uri.parse(webSocketLink));
+    stream = channel?.stream.asBroadcastStream();
+  }
 }
