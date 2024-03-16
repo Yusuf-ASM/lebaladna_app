@@ -1,4 +1,5 @@
 import * as crypto from "crypto";
+import Joi from "joi";
 import { ObjectId } from "mongodb";
 require("dotenv").config();
 
@@ -292,7 +293,10 @@ export function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export function joiObjectId(value: any, helper: any) {
+export function joiObjectIdChecker(value: any, helper: any) {
   if (isValidObjectId(value)) return value;
   return helper.message("Not a valid ObjectId");
 }
+export const jObjectId = Joi.string().trim().custom(joiObjectIdChecker);
+export const jString = Joi.string().trim();
+export const jNumber = Joi.number();

@@ -4,6 +4,7 @@ import * as db from "../helper/db";
 
 export const admin = Router();
 
+//okie
 admin.post("/register/user", async (req, res) => {
   await backend.registerUserBackend(req, res);
 });
@@ -21,6 +22,11 @@ admin.post("/register/meal", async (req, res) => {
 //okie
 admin.post("/register/campaign", async (req, res) => {
   await backend.registerCampaignBackend(req, res);
+});
+
+//okie
+admin.get("/campaigns", async (req, res) => {
+  await backend.getCampaignsBackend(req, res);
 });
 
 // TODO to be removed from here

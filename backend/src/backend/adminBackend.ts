@@ -4,6 +4,7 @@ import * as db from "../helper/db";
 import Joi from "joi";
 import { Meal } from "../helper/schema";
 
+//okie
 export async function registerUserBackend(req: Request, res: Response) {
   const body = req.body;
 
@@ -16,6 +17,7 @@ export async function registerUserBackend(req: Request, res: Response) {
 
   if (validationResult.error === undefined) {
     let result = await db.registerUser(body);
+    console.log("registerUserBackend:");
     console.log(result);
     if (!Array.isArray(result) && result) {
       res.send(result);
@@ -29,6 +31,7 @@ export async function registerUserBackend(req: Request, res: Response) {
   }
 }
 
+//okie
 export async function registerIngredientBackend(req: Request, res: Response) {
   const body = req.body;
 
@@ -41,6 +44,7 @@ export async function registerIngredientBackend(req: Request, res: Response) {
 
   if (validationResult.error === undefined) {
     let result = await db.registerIngredient(body);
+    console.log("registerIngredientBackend:");
     console.log(result);
     if (!Array.isArray(result) && result) {
       res.send(result);
@@ -54,21 +58,16 @@ export async function registerIngredientBackend(req: Request, res: Response) {
   }
 }
 
+//okie
 export async function registerMealBackend(req: Request, res: Response) {
   const body = req.body;
   console.log(body);
 
-  if (Object.keys(body).length == 0) {
-    res.status(400).send({ error: "Empty Body" });
-    return;
-  }
-
-
   let validationResult = Meal.validate(body);
-  // TODO need to check ingredient data
 
   if (validationResult.error === undefined) {
     let result = await db.registerMeal(body);
+    console.log("registerMealBackend:");
     console.log(result);
     if (!Array.isArray(result) && result) {
       res.send(result);
@@ -84,23 +83,24 @@ export async function registerMealBackend(req: Request, res: Response) {
 
 export async function registerCampaignBackend(req: Request, res: Response) {
   const body = req.body;
-
-  if (Object.keys(body).length == 0) {
-    res.status(400).send({ error: "Empty Body" });
-    return;
-  }
-
-  let checkingResult = utility.checkParameter({
-    body: body,
-    strings: ["name"],
-    objectIds: ["kitchenLeader"],
-  });
-
+  // meals: {
+  //   'roz-kofta': {
+  //     _id: '65ef3a0236d45c9eb682eeab',
+  //     name: 'roz-kofta',
+  //     ingredients: [Array],
+  //     target: 10,
+  //     cooked: 0
+  //   }
   const schema = Joi.object({
-    name: Joi.string().trim().required(),
+    name: utility.jString.required(),
+    kitchenLeader: utility.jObjectId.required(),
+    stationLeaders: Joi.array().required().items(utility.jObjectId),
+    meals: Joi.object().pattern(utility.jString, Meal),
   });
 
   let validationResult = schema.validate(body);
+  console.log(validationResult.error);
+
   if (validationResult.error === undefined) {
     let result = await db.registerCampaign(body);
     console.log(result);
@@ -114,4 +114,18 @@ export async function registerCampaignBackend(req: Request, res: Response) {
   } else {
     res.status(400).send({ error: validationResult.error.message });
   }
+}
+
+export async function getCampaignsBackend(req: Request, res: Response) {
+  let result = await db.getCampaigns();
+  res.send(result);
+  console.log("getCampaignsBackend:");
+  console.log(result);
+}
+
+export async function getCampaignsReportBackend(req: Request, res: Response) {
+  let result = await db.getCampaigns();
+  res.send(result);
+  console.log("getCampaignsBackend:");
+  console.log(result);
 }

@@ -369,6 +369,31 @@ export async function getCampaign(_id: string) {
   return result;
 }
 
+export async function getCampaigns() {
+  let campaigns = (await campaignsCollection.find().toArray()) as Campaign_id[];
+  let result = [];
+  let temp = [];
+
+  for (const campaign of campaigns) {
+    temp = [campaign._id, campaign.name, "admin"];
+    result.push(temp);
+  }
+
+  return result;
+}
+
+export async function getCampaignReport() {
+  let campaign = await campaignsCollection.findOne<Campaign_id>();
+  let meals = [];
+  if (campaign != null) {
+    for (const key in campaign.meals) {
+      const meal = campaign.meals[key];
+      meals.push([meal.name, meal.target, meal.cooked]);
+    }
+    return [meals];
+  }
+  return campaign;
+}
 // export async function getCampaignMeals(_id: string) {
 //   const query = { _id: new ObjectId(_id) };
 //   let result = await campaignsCollection.findOne<Campaign_id>(query);

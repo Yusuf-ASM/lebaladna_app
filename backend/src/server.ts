@@ -1,6 +1,6 @@
 import WebSocket from "ws";
 import express from "express";
-import { getDate } from "./helper/utility";
+import { getDate, jObjectId } from "./helper/utility";
 import * as backend from "./helper/backend";
 import * as db from "./helper/db";
 import cors from "cors";
@@ -8,6 +8,8 @@ import { admin } from "./routes/adminRouter";
 import { facilitator } from "./routes/facilitatorRouter";
 import { kitchen } from "./routes/kitchenRouter";
 import { station } from "./routes/stationRouter";
+import Joi from "joi";
+import { Ingredient } from "./helper/schema";
 
 require("dotenv").config();
 const PORT = process.env.PORT || "8080";
@@ -32,7 +34,7 @@ app.use("/kitchen", kitchen);
 
 //okie
 
-app.get("/campaign", async (req, res) => {
+app.get("/campaign/:id", async (req, res) => {
   await backend.getCampaignBackend(req, res);
 });
 
@@ -40,7 +42,14 @@ app.post("/user_campaign", async (req, res) => {
   await backend.getUserCampaignsBackend(req, res);
 });
 
-app.get("/test", async (req, res) => {
+app.all("/test", async (req, res) => {
+  const _ = Joi.object({ ingredients: Joi.array().items(Ingredient) });
+  console.log(_.validate(req.body).error);
+  res.send();
+});
+app.all("/test/:id", async (req, res) => {
+  console.log(req.params);
+
   res.send();
 });
 

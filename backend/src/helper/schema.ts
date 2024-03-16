@@ -1,7 +1,7 @@
 import Joi from "joi";
 import { ObjectId } from "mongodb";
 import { WebSocket } from "ws";
-import { joiObjectId } from "./utility";
+import { jNumber, jObjectId, jString } from "./utility";
 export type json = { [key: string]: any };
 
 export type WebSocketJson = { [key: string]: WebSocket };
@@ -26,7 +26,8 @@ export interface Ingredient_id extends Ingredient {
 }
 
 export const Ingredient = Joi.object({
-  _id: Joi.string().trim().required().custom(joiObjectId),
+  // _id: Joi.string().trim().required().custom(joiObjectId),
+  _id: jObjectId,
   name: Joi.string().trim().required(),
   measureUnit: Joi.string().trim().required(),
 });
@@ -50,9 +51,10 @@ export interface Meal_id extends Meal {
 }
 
 export const Meal = Joi.object({
-  name: Joi.string().trim().required(),
-  target: Joi.number(),
-  cooked: Joi.number(),
+  _id: jObjectId,
+  name: jString.required(),
+  target: jNumber,
+  cooked: jNumber,
   ingredients: Joi.array().items(Ingredient),
 });
 
