@@ -38,7 +38,6 @@ app.get("/campaign/:id", async (req, res) => {
   await backend.getCampaignBackend(req, res);
 });
 
-
 app.post("/user_campaign", async (req, res) => {
   await backend.getUserCampaignsBackend(req, res);
 });
@@ -78,15 +77,5 @@ server.on("upgrade", (req, socket, head) => {
 
 wss.on("connection", (ws, req) => {
   let name = req.headers.name as string;
-  ws;
-  backend.usersWs[name] = ws;
-  ws.on("message", (msg, isBinary) => {
-    const message = msg.toString();
-    if (backend.usersWs.hasOwnProperty(message)) {
-      backend.usersWs[message].send("hello " + name);
-    } else {
-      ws.send(message);
-      console.log(backend.usersWs[message]);
-    }
-  });
+  backend.usersWs.push(ws);
 });
