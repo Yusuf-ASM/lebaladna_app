@@ -230,7 +230,6 @@ class KitchenLeaderPage extends StatelessWidget {
 
             ingredientNames = response[0];
             progress = response[1];
-            writeLog("functionName", progress);
             for (final key in progress.keys) {
               final ingredient = progress[key].keys.toList();
               for (final element in ingredient) {

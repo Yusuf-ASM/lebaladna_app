@@ -17,7 +17,6 @@ class RegisterCampaignPage extends StatelessWidget {
     Map<String, dynamic> selectedMeals = {};
     Set selectedStationLeaders = {};
     String selectedKitchenLeader = "";
-    final target = TextEditingController();
     List response = [];
     List users = [];
     List meals = [];

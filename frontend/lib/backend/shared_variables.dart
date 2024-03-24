@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
+const link = Testing ? "127.0.0.1" : "192.168.3.100";
 const BackendLink = "http://127.0.0.1:8080";
 const webSocketLink = "ws://127.0.0.1:8080/ws";
 const UserBackendLink = "http://127.0.0.1:8080/user";
@@ -11,6 +12,14 @@ const AdminBackendLink = "http://127.0.0.1:8080/admin";
 const KitchenBackendLink = "http://127.0.0.1:8080/kitchen";
 const StationBackendLink = "http://127.0.0.1:8080/station";
 const FacilitatorBackendLink = "http://127.0.0.1:8080/facilitator";
+// const BackendLink = "http://192.168.3.100:8080";
+// const webSocketLink = "ws://192.168.3.100:8080/ws";
+// const UserBackendLink = "http://192.168.3.100:8080/user";
+// const AdminBackendLink = "http://192.168.3.100:8080/admin";
+// const KitchenBackendLink = "http://192.168.3.100:8080/kitchen";
+// const StationBackendLink = "http://192.168.3.100:8080/station";
+// const FacilitatorBackendLink = "http://192.168.3.100:8080/facilitator";
+
 WebSocketChannel? channel;
 Stream? stream;
 const Testing = true;

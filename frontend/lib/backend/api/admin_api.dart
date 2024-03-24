@@ -154,3 +154,22 @@ Future<List> getCampaigns() async {
     return response;
   }
 }
+
+Future<List> getCampaign(String id) async {
+  Dio dio = Dio();
+  try {
+    final response = await dio.get("$AdminBackendLink/campaign/$id");
+    dio.close();
+    return [200, response.data];
+  } on DioException catch (error) {
+    List response = [-1, error.message];
+    dio.close();
+    if (error.response != null) {
+      writeError("getCampaigns", "${error.response!.statusCode} - ${error.response!.data}");
+      response = [error.response!.statusCode, error.response!.data["error"]];
+    } else {
+      writeError("getCampaigns", error);
+    }
+    return response;
+  }
+}

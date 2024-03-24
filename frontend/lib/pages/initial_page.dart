@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lebaladna/pages/campaigns_page.dart';
-import 'package:lebaladna/pages/home_page_.dart';
 import 'package:lebaladna/pages/login_page.dart';
+import 'package:lebaladna/pages/test_page.dart';
 
 import '../../backend/custom_functions.dart';
 import '../../backend/shared_variables.dart';
@@ -19,6 +19,7 @@ class InitialPage extends StatelessWidget {
           headers["_id"] = box.get("_id");
           headers["token"] = box.get("token");
           return const CampaignsPage();
+          return const TestPage();
         }
         return LoginPage();
       },

@@ -127,8 +127,10 @@ Theme expansionTile(BuildContext context, String title, List<Widget> children) {
   return Theme(
     data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
     child: ExpansionTile(
+      
       title: Text(title, style: const TextStyle(fontSize: SemiTextSize)),
-      childrenPadding: const EdgeInsets.symmetric(horizontal: 8),
+      childrenPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      expandedAlignment: Alignment.center,
       children: children,
     ),
   );
