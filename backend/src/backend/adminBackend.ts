@@ -119,7 +119,27 @@ export async function getCampaignsBackend(req: Request, res: Response) {
   console.log(result);
 }
 
-//TODO continue 
+export async function getCampaignBackend(req: Request, res: Response) {
+  const params = req.params;
+
+  const schema = Joi.object({
+    campaignId: utility.jObjectId.required(),
+  });
+
+  let validationResult = schema.validate(params);
+  console.log("getCampaignBackend:");
+
+  if (validationResult.error === undefined) {
+    let result = await db.getCampaign(params.campaignId);
+    res.send(result); 
+    console.log(result);
+  } else {
+    console.log(JSON.stringify(validationResult.error));
+    res.status(400).send({ error: validationResult.error.message });
+  }
+}
+
+//TODO continue
 export async function getCampaignsReportBackend(req: Request, res: Response) {
   let result = await db.getCampaigns();
   res.send(result);

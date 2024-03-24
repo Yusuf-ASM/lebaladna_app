@@ -5,7 +5,7 @@ import * as db from "./db";
 import * as utility from "./utility";
 import Joi from "joi";
 
-export let usersWs: WebSocketJson = {};
+export let usersWs: WebSocketJson = [];
 
 //okie
 export async function loginBackend(req: Request, res: Response) {

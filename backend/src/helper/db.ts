@@ -88,6 +88,7 @@ export async function registerUser({ name, password }: { name: string; password:
   }
 }
 
+//okie
 export async function getUsers() {
   let users = (await usersCollection.find().toArray()) as User_id[];
   let names = [];
@@ -245,6 +246,7 @@ export async function getMeals() {
   return [names, meals];
 }
 
+//okie
 export async function addMeal({
   campaignId,
   name,
@@ -260,11 +262,6 @@ export async function addMeal({
   console.log(meal);
   const query = { _id: new ObjectId(campaignId) };
   const res = await campaignsCollection.updateOne(query, {
-    // $set: {
-    //   [`stationReport.${name}.meals`]: {
-    //     [meal]: quantity,
-    //   },
-    // },
     $inc: {
       [`meals.${meal}.cooked`]: quantity,
       [`stationsReport.${name}.meals.${meal}`]: quantity,
@@ -328,6 +325,7 @@ export async function registerCampaign({
   }
 }
 
+//okie
 export async function getUserCampaigns({ _id, activated }: { _id: string; activated: boolean }) {
   const userId = new ObjectId(_id);
   const query = {
@@ -359,7 +357,24 @@ export async function getUserCampaigns({ _id, activated }: { _id: string; activa
 export async function getCampaign(_id: string) {
   const query = { _id: new ObjectId(_id) };
   let result = await campaignsCollection.findOne<Campaign_id>(query);
-  return result;
+  let output = {};
+  if (result != null) {
+    let meals: json = {};
+
+    for (const meal in result.meals) {
+      const temp = result.meals[meal];
+      meals[meal] = { target: temp.target, cooked: temp.cooked };
+    }
+
+    output = {
+      repo: result.repo,
+      requests: result.requests,
+      kitchenReport: result.kitchenReport,
+      stationReport: result.stationsReport,
+      meals: meals,
+    };
+  }
+  return output;
 }
 
 export async function getCampaigns() {
@@ -375,19 +390,11 @@ export async function getCampaigns() {
   return result;
 }
 
-export async function getCampaignReport() {
-  let campaign = await campaignsCollection.findOne<Campaign_id>();
-  let meals = [];
-  if (campaign != null) {
-    for (const key in campaign.meals) {
-      const meal = campaign.meals[key];
-      meals.push([meal.name, meal.target, meal.cooked]);
-    }
+// current progress
+// used material
+// used station progress
+// used report
 
-    return [meals];
-  }
-  return campaign;
-}
 // export async function getCampaignMeals(_id: string) {
 //   const query = { _id: new ObjectId(_id) };
 //   let result = await campaignsCollection.findOne<Campaign_id>(query);
