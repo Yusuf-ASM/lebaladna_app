@@ -29,6 +29,11 @@ admin.get("/campaigns", async (req, res) => {
   await backend.getCampaignsBackend(req, res);
 });
 
+//okie
+admin.get("/campaign/:campaignId", async (req, res) => {
+  await backend.getCampaignBackend(req, res);
+});
+
 // TODO to be removed from here
 admin.get("/ingredients", async (req, res) => {
   res.send(await db.getIngredients());

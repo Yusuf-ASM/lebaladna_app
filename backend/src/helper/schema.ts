@@ -4,7 +4,7 @@ import { WebSocket } from "ws";
 import { jNumber, jObjectId, jString } from "./utility";
 export type json = { [key: string]: any };
 
-export type WebSocketJson = { [key: string]: WebSocket };
+export type WebSocketJson = WebSocket[];
 
 export interface User {
   name: string;
