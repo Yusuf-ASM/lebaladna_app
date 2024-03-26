@@ -66,7 +66,9 @@ class RegisterMealPage extends StatelessWidget {
                               child: ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: ingredients.length,
-                                itemBuilder: (context, index) => AboutUsSwitchV2(
+                                itemBuilder: (context, index) => CustomSwitch(
+                                  initialValue:
+                                      selectedIngredients.contains(ingredientsData[index]),
                                   switchName: ingredients[index],
                                   callback: (value) {
                                     if (value) {

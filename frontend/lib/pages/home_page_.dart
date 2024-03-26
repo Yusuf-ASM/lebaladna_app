@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -32,10 +30,7 @@ class HomePage extends StatelessWidget {
     double maxWidth = width * 0.9;
 
     if (stream != null) {
-      print("object");
-      
       stream!.listen((event) {
-        print(event);
         if (event == "kitchen" || event == "station") {
           backend(context, maxWidth, campaignId).then((value) {
             stationReport = value;
@@ -272,7 +267,8 @@ Future<List<Widget>> backend(
   double maxWidth,
   String campaignId,
 ) async {
-  List<Widget> stationReport = [];
+  List<Widget> stationProgress = [];
+  List meals = [];
   Map response = {};
   final value = await campaignReport(campaignId);
 
@@ -281,7 +277,7 @@ Future<List<Widget>> backend(
     for (final station in response["stationReport"].entries) {
       List<Widget> meals = [];
       List<Widget> ingredients = [];
-      for (var meal in station.value["meals"].entries) {
+      for (final meal in station.value["meals"].entries) {
         meals.add(
           Text(
             "${meal.key}: ${meal.value}",
@@ -289,7 +285,7 @@ Future<List<Widget>> backend(
           ),
         );
       }
-      for (var ingredient in station.value["ingredients"].entries) {
+      for (final ingredient in station.value["ingredients"].entries) {
         ingredients.add(
           Text(
             "${ingredient.key}: ${ingredient.value}",
@@ -297,8 +293,16 @@ Future<List<Widget>> backend(
           ),
         );
       }
+      for (final meal in response["meals"].entries) {
+        final target = meal.value["target"];
+        final cooked = meal.value["cooked"];
+        final progress = cooked / target;
+        print(progress);
+      }
 
-      stationReport.add(
+// {repo: {}, requests: [], kitchenReport: {}, meals: {roz-kofta: {target: 10, cooked: 58}}}
+
+      stationProgress.add(
         Column(
           children: [
             Text(
@@ -319,7 +323,7 @@ Future<List<Widget>> backend(
     }
   }
 
-  return stationReport;
+  return stationProgress;
 }
 
 Drawer drawer(BuildContext context) {

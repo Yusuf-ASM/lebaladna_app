@@ -4,9 +4,14 @@ import 'package:lebaladna/backend/custom_functions.dart';
 import 'package:lebaladna/pages/kitchen_leader_page.dart';
 
 import '../backend/shared_variables.dart';
+import '../backend/text.dart';
 import '../components/shared_components.dart';
 import 'home_page_.dart';
 import 'pages_backend/campaigns.dart';
+import 'register/register_campaign.dart';
+import 'register/register_ingredient.dart';
+import 'register/register_meal.dart';
+import 'register/register_user.dart';
 import 'station_page.dart';
 
 class CampaignsPage extends StatelessWidget {
@@ -27,7 +32,7 @@ class CampaignsPage extends StatelessWidget {
           builder: (context, child) {
             if (loading.loading) {
               campaignData().then((value) {
-                if (value.isNotEmpty) response = value[1];
+                if (value.isNotEmpty) response = value;
                 loading.change();
               });
               return loadingIndicator();
@@ -36,6 +41,7 @@ class CampaignsPage extends StatelessWidget {
                 child: Text("Error :(", style: TextStyle(fontSize: BigTextSize)),
               );
             }
+            response = response[1];
             return ListView.builder(
               itemCount: response.length,
               itemBuilder: (context, index) {
@@ -117,6 +123,7 @@ class CampaignsPage extends StatelessWidget {
 }
 
 Drawer drawer(BuildContext context) {
+  print(box.get("name"));
   final signInStateNotifier = UserStateNotifier();
   return Drawer(
     child: Column(
@@ -132,6 +139,63 @@ Drawer drawer(BuildContext context) {
             ),
           ),
         ),
+        if (box.get("name") == "admin")
+          Theme(
+            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+            child: ExpansionTile(
+              title: const Text(
+                textRegistration,
+                style: TextStyle(fontSize: SemiTextSize),
+              ),
+              childrenPadding: const EdgeInsets.symmetric(horizontal: 8),
+              children: [
+                DrawerIconButton(
+                  text: textRegisterUser,
+                  icon: Icons.person_add_alt_1,
+                  pressFunction: () {
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => RegisterUserPage(),
+                      ),
+                    );
+                  },
+                ),
+                DrawerIconButton(
+                  text: textCreateCampaign,
+                  icon: Icons.campaign,
+                  pressFunction: () {
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => RegisterCampaignPage(),
+                      ),
+                    );
+                  },
+                ),
+                DrawerIconButton(
+                  text: textCreateIngredient,
+                  icon: Icons.local_grocery_store_rounded,
+                  pressFunction: () {
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => RegisterIngredientPage(),
+                      ),
+                    );
+                  },
+                ),
+                DrawerIconButton(
+                  text: textCreateMeal,
+                  icon: Icons.local_dining,
+                  pressFunction: () {
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => const RegisterMealPage(),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
         DrawerIconButton(
           text: "Logout",
           icon: Icons.logout,

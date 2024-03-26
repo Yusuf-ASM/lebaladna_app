@@ -56,23 +56,26 @@ class _AboutUsSwitchState extends State<AboutUsSwitch> {
   }
 }
 
-class AboutUsSwitchV2 extends StatefulWidget {
+class CustomSwitch extends StatefulWidget {
   final String switchName;
+  final bool initialValue;
   final Function(bool value) callback;
-  const AboutUsSwitchV2({
+  const CustomSwitch({
     super.key,
     required this.switchName,
     required this.callback,
+    required this.initialValue,
   });
 
   @override
-  State<AboutUsSwitchV2> createState() => _AboutUsSwitchV2State();
+  State<CustomSwitch> createState() => _CustomSwitchState();
 }
 
-class _AboutUsSwitchV2State extends State<AboutUsSwitchV2> {
+class _CustomSwitchState extends State<CustomSwitch> {
   bool switchValue = false;
   @override
   void initState() {
+    switchValue = widget.initialValue;
     super.initState();
   }
 
@@ -95,8 +98,8 @@ class _AboutUsSwitchV2State extends State<AboutUsSwitchV2> {
             splashRadius: 25,
             value: switchValue,
             onChanged: (value) {
+              widget.callback(value);
               setState(() => switchValue = !switchValue);
-              widget.callback(switchValue);
             },
           ),
         ],

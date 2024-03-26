@@ -7,7 +7,6 @@ import '../../backend/shared_variables.dart';
 import '../../components/about_us/about_us_switch.dart';
 import '../pages_backend/register.dart';
 
-// TODO fix data of expansionTile
 class RegisterCampaignPage extends StatelessWidget {
   final campaignName = TextEditingController();
   RegisterCampaignPage({super.key});
@@ -64,7 +63,7 @@ class RegisterCampaignPage extends StatelessWidget {
                         onSubmitted: () => {},
                         labelText: textCampaignName,
                       ),
-                      expansionTile(context, textMeals, [
+                      expansionTile(context, "Meals", [
                         Container(
                           padding: const EdgeInsets.all(16),
                           width: maxWidth * 0.9,
@@ -79,6 +78,7 @@ class RegisterCampaignPage extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   final mealName = meals[index];
                                   final target = TextEditingController();
+                                  target.text = mealIds[index]["target"].toString();
                                   return Row(
                                     children: [
                                       Expanded(
@@ -129,7 +129,8 @@ class RegisterCampaignPage extends StatelessWidget {
                               child: ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: users.length,
-                                itemBuilder: (context, index) => AboutUsSwitchV2(
+                                itemBuilder: (context, index) => CustomSwitch(
+                                  initialValue: selectedKitchenLeader == userIds[index],
                                   switchName: users[index],
                                   callback: (value) {
                                     if (value) {
@@ -156,7 +157,8 @@ class RegisterCampaignPage extends StatelessWidget {
                               child: ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: users.length,
-                                itemBuilder: (context, index) => AboutUsSwitchV2(
+                                itemBuilder: (context, index) => CustomSwitch(
+                                  initialValue: selectedStationLeaders.contains(userIds[index]),
                                   switchName: users[index],
                                   callback: (value) {
                                     if (value) {
