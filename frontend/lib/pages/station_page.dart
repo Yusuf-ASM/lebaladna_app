@@ -22,7 +22,6 @@ class StationPage extends StatelessWidget {
     Map response = {};
     if (stream != null) {
       stream!.listen((event) {
-        print(event);
         if (event == "station") {
           //TODO check campaign id :)
           stationDashboardData(campaignId).then((value) {

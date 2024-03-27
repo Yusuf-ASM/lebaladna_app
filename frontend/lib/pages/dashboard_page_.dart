@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:lebaladna/backend/text.dart';
 import 'package:lebaladna/components/shared_components.dart';
 import 'package:lebaladna/pages/pages_backend/dashboard.dart';
@@ -8,24 +7,22 @@ import 'package:lebaladna/pages/register/register_campaign.dart';
 import 'package:lebaladna/pages/register/register_ingredient.dart';
 import 'package:lebaladna/pages/register/register_meal.dart';
 import 'package:lebaladna/pages/register/register_user.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 
 import '../backend/custom_functions.dart';
 import '../backend/shared_variables.dart';
 
-class HomePage extends StatelessWidget {
+class DashboardPage extends StatelessWidget {
   final notifier = VariableNotifier();
   final loading = LoadingStateNotifier();
   final String campaignId;
-  HomePage({super.key, required this.campaignId});
+  DashboardPage({super.key, required this.campaignId});
 
   @override
   Widget build(BuildContext context) {
-    Map response = {};
-    Map repo = {};
-    Map requests = {};
-    List<Widget> stationReport = [];
-    Map meals = {};
+    List<Widget> mealProgress = [];
+    List<Widget> usedMaterial = [];
+    List<Widget> stationProgress = [];
+    List<Widget> repo = [];
     final width = MediaQuery.of(context).size.width;
     double maxWidth = width * 0.9;
 
@@ -33,7 +30,10 @@ class HomePage extends StatelessWidget {
       stream!.listen((event) {
         if (event == "kitchen" || event == "station") {
           backend(context, maxWidth, campaignId).then((value) {
-            stationReport = value;
+            mealProgress = value[0];
+            usedMaterial = value[1];
+            stationProgress = value[2];
+            repo = value[3];
             notifier.change();
           });
         }
@@ -49,11 +49,14 @@ class HomePage extends StatelessWidget {
           builder: (context, child) {
             if (loading.loading) {
               backend(context, maxWidth, campaignId).then((value) {
-                stationReport = value;
+                mealProgress = value[0];
+                usedMaterial = value[1];
+                stationProgress = value[2];
+                repo = value[3];
                 loading.change();
               });
               return loadingIndicator();
-            } else if (stationReport.isEmpty) {
+            } else if (stationProgress.isEmpty) {
               return const Center(
                   child: Text(
                 "Error :(",
@@ -72,23 +75,20 @@ class HomePage extends StatelessWidget {
                         elevation: 4,
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Expanded(
-                                child: Center(
-                                  child: Text(
-                                    "Current Progress:",
-                                    style: TextStyle(fontSize: SemiTextSize),
-                                  ),
+                              const Text(
+                                "Current Progress:",
+                                style: TextStyle(
+                                  fontSize: SemiTextSize,
                                 ),
                               ),
-                              CircularPercentIndicator(
-                                radius: 60.0,
-                                lineWidth: 5.0,
-                                percent: 0.5,
-                                center: const Text("100%"),
-                                progressColor: Colors.green,
+                              ListenableBuilder(
+                                listenable: notifier,
+                                builder: (context, child) {
+                                  return Column(children: mealProgress);
+                                },
                               ),
                             ],
                           ),
@@ -98,13 +98,13 @@ class HomePage extends StatelessWidget {
                     const SizedBox(height: 16),
                     ConstrainedBox(
                       constraints: BoxConstraints(maxWidth: maxWidth, minWidth: maxWidth),
-                      child: const Card(
+                      child: Card(
                         elevation: 4,
                         child: Padding(
-                          padding: EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.all(16.0),
                           child: Column(
                             children: [
-                              Row(
+                              const Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
@@ -113,51 +113,21 @@ class HomePage extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 8),
-                                child: Wrap(
-                                  spacing: 32,
-                                  // alignment: WrapAlignment.spaceEvenly,
-                                  direction: Axis.horizontal,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Text(
-                                          "01",
-                                          style: TextStyle(fontSize: BigTextSize),
-                                        ),
-                                        Text(
-                                          "Rice",
-                                          style: TextStyle(fontSize: SemiTextSize),
-                                        ),
-                                      ],
+                              ListenableBuilder(
+                                listenable: notifier,
+                                builder: (context, child) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(top: 8),
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Wrap(
+                                        spacing: 32,
+                                        direction: Axis.horizontal,
+                                        children: usedMaterial,
+                                      ),
                                     ),
-                                    Column(
-                                      children: [
-                                        Text(
-                                          "10",
-                                          style: TextStyle(fontSize: BigTextSize),
-                                        ),
-                                        Text(
-                                          "Pack",
-                                          style: TextStyle(fontSize: SemiTextSize),
-                                        ),
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        Text(
-                                          "02",
-                                          style: TextStyle(fontSize: BigTextSize),
-                                        ),
-                                        Text(
-                                          "Meat",
-                                          style: TextStyle(fontSize: SemiTextSize),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                  );
+                                },
                               ),
                             ],
                           ),
@@ -193,7 +163,7 @@ class HomePage extends StatelessWidget {
                                         spacing: 8,
                                         alignment: WrapAlignment.spaceEvenly,
                                         direction: Axis.vertical,
-                                        children: stationReport,
+                                        children: stationProgress,
                                       ),
                                     ),
                                   ],
@@ -203,6 +173,37 @@ class HomePage extends StatelessWidget {
                           ),
                         );
                       },
+                    ),
+                    const SizedBox(height: 16),
+                    ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: maxWidth, minWidth: maxWidth),
+                      child: Card(
+                        elevation: 4,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              const Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Repo:",
+                                    style: TextStyle(fontSize: SemiTextSize),
+                                  ),
+                                ],
+                              ),
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Wrap(
+                                  spacing: 32,
+                                  direction: Axis.horizontal,
+                                  children: repo,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 16),
                     ConstrainedBox(
@@ -260,70 +261,6 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-}
-
-Future<List<Widget>> backend(
-  BuildContext context,
-  double maxWidth,
-  String campaignId,
-) async {
-  List<Widget> stationProgress = [];
-  List meals = [];
-  Map response = {};
-  final value = await campaignReport(campaignId);
-
-  if (value.isNotEmpty) {
-    response = value[1];
-    for (final station in response["stationReport"].entries) {
-      List<Widget> meals = [];
-      List<Widget> ingredients = [];
-      for (final meal in station.value["meals"].entries) {
-        meals.add(
-          Text(
-            "${meal.key}: ${meal.value}",
-            style: const TextStyle(fontSize: SemiTextSize),
-          ),
-        );
-      }
-      for (final ingredient in station.value["ingredients"].entries) {
-        ingredients.add(
-          Text(
-            "${ingredient.key}: ${ingredient.value}",
-            style: const TextStyle(fontSize: SemiTextSize),
-          ),
-        );
-      }
-      for (final meal in response["meals"].entries) {
-        final target = meal.value["target"];
-        final cooked = meal.value["cooked"];
-        final progress = cooked / target;
-        print(progress);
-      }
-
-// {repo: {}, requests: [], kitchenReport: {}, meals: {roz-kofta: {target: 10, cooked: 58}}}
-
-      stationProgress.add(
-        Column(
-          children: [
-            Text(
-              "${station.key}'s station: ",
-              style: const TextStyle(fontSize: SemiTextSize),
-            ),
-            SizedBox(
-              width: maxWidth * 0.9,
-              child: expansionTile(context, "Meals", meals),
-            ),
-            SizedBox(
-              width: maxWidth * 0.9,
-              child: expansionTile(context, "Ingredients", ingredients),
-            )
-          ],
-        ),
-      );
-    }
-  }
-
-  return stationProgress;
 }
 
 Drawer drawer(BuildContext context) {

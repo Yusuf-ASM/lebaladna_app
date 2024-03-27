@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class TestPage extends StatefulWidget {
   const TestPage({super.key});
@@ -11,17 +10,11 @@ class TestPage extends StatefulWidget {
 class _TestPageState extends State<TestPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: LinearPercentIndicator(
-          width: 200,
-          alignment: MainAxisAlignment.center,
-          percent: 0.8,
-          center: Text("${0.8 * 100}%"),
-          lineHeight: 20,
-          barRadius: Radius.circular(15),
-        ),
-      ),
+    // final width = MediaQuery.of(context).size.width;
+    // double maxWidth = width * 0.9;
+
+    return const Scaffold(
+      body: Center(),
     );
   }
 }
