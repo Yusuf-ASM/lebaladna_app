@@ -4,14 +4,10 @@ import 'package:lebaladna/backend/custom_functions.dart';
 import 'package:lebaladna/pages/kitchen_leader_page.dart';
 
 import '../backend/shared_variables.dart';
-import '../backend/text.dart';
+import '../components/drawers.dart';
 import '../components/shared_components.dart';
-import 'dashboard_page_.dart';
+import 'dashboard_page.dart';
 import 'pages_backend/campaigns.dart';
-import 'register/register_campaign.dart';
-import 'register/register_ingredient.dart';
-import 'register/register_meal.dart';
-import 'register/register_user.dart';
 import 'station_page.dart';
 
 class CampaignsPage extends StatelessWidget {
@@ -26,7 +22,7 @@ class CampaignsPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(centerTitle: true, title: const Text("Campaigns")),
-        drawer: drawer(context),
+        drawer: box.get("name") == "admin" ? adminDrawer(context) : drawer(context),
         body: ListenableBuilder(
           listenable: loading,
           builder: (context, child) {
@@ -51,7 +47,7 @@ class CampaignsPage extends StatelessWidget {
             }
 
             response = response[1];
-           
+
             return ListView.builder(
               itemCount: response.length,
               itemBuilder: (context, index) {
@@ -131,87 +127,4 @@ class CampaignsPage extends StatelessWidget {
       ),
     );
   }
-}
-
-Drawer drawer(BuildContext context) {
-  final signInStateNotifier = UserStateNotifier();
-  return Drawer(
-    child: Column(
-      children: [
-        const DrawerHeader(
-          child: Center(
-            child: Text(
-              "Lebaladna",
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ),
-        if (box.get("name") == "admin")
-          Theme(
-            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-            child: ExpansionTile(
-              title: const Text(
-                textRegistration,
-                style: TextStyle(fontSize: SemiTextSize),
-              ),
-              childrenPadding: const EdgeInsets.symmetric(horizontal: 8),
-              children: [
-                DrawerIconButton(
-                  text: textRegisterUser,
-                  icon: Icons.person_add_alt_1,
-                  pressFunction: () {
-                    Navigator.of(context).push(
-                      CupertinoPageRoute(
-                        builder: (context) => RegisterUserPage(),
-                      ),
-                    );
-                  },
-                ),
-                DrawerIconButton(
-                  text: textCreateCampaign,
-                  icon: Icons.campaign,
-                  pressFunction: () {
-                    Navigator.of(context).push(
-                      CupertinoPageRoute(
-                        builder: (context) => RegisterCampaignPage(),
-                      ),
-                    );
-                  },
-                ),
-                DrawerIconButton(
-                  text: textCreateIngredient,
-                  icon: Icons.local_grocery_store_rounded,
-                  pressFunction: () {
-                    Navigator.of(context).push(
-                      CupertinoPageRoute(
-                        builder: (context) => RegisterIngredientPage(),
-                      ),
-                    );
-                  },
-                ),
-                DrawerIconButton(
-                  text: textCreateMeal,
-                  icon: Icons.local_dining,
-                  pressFunction: () {
-                    Navigator.of(context).push(
-                      CupertinoPageRoute(
-                        builder: (context) => const RegisterMealPage(),
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
-        DrawerIconButton(
-          text: "Logout",
-          icon: Icons.logout,
-          pressFunction: () => signInStateNotifier.logout(),
-        )
-      ],
-    ),
-  );
 }

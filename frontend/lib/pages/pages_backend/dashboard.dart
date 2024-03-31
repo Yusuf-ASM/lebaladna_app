@@ -65,13 +65,7 @@ Future<List<List<Widget>>> backend(
       }
 
       stationProgress.add(
-        stationProgressWidget(
-          context,
-          maxWidth,
-          station.key,
-          meals,
-          ingredients,
-        ),
+        stationProgressWidget(context, maxWidth, station.key, meals, ingredients),
       );
     }
 
