@@ -34,10 +34,10 @@ flutter_launcher_icons:
 flutter:
   uses-material-design: true
 
-  fonts:
-    - family: Roboto
-      fonts:
-        - asset: assets/fonts/Roboto-Regular.ttf
+  # fonts:
+  #   - family: Roboto
+  #     fonts:
+  #       - asset: assets/fonts/Roboto-Regular.ttf
 
   assets:
     - assets/logo_crop.png
