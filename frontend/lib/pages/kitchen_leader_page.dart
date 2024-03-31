@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lebaladna/backend/text.dart';
 
 import '../backend/custom_functions.dart';
 import '../backend/shared_variables.dart';
@@ -75,7 +74,7 @@ class KitchenLeaderPage extends StatelessWidget {
     }
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: const Text(textDashboard), centerTitle: true),
+        appBar: AppBar(title: const Text("Dashboard"), centerTitle: true),
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () async {

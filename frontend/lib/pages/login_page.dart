@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lebaladna/backend/shared_variables.dart';
 
-import '../backend/text.dart';
-import '../components/auth/button.dart';
-import '../components/auth/text_field.dart';
+import '../components/buttons.dart';
+import '../components/text_fields.dart';
 import 'pages_backend/login.dart';
 
 class LoginPage extends StatelessWidget {
@@ -33,13 +33,13 @@ class LoginPage extends StatelessWidget {
                   Column(
                     children: [
                       SignInTextField(
-                        hintText: textUsernameHint,
+                        hintText: "Your Username ex: potato",
                         controller: username,
                         keyboardType: TextInputType.emailAddress,
                         onSubmitted: () {},
                       ),
                       PasswordTextField(
-                        hintText: textPasswordHint,
+                        hintText: "Your password",
                         controller: password,
                         onSubmitted: () => loginButton(
                           name: username.text,
@@ -54,7 +54,7 @@ class LoginPage extends StatelessWidget {
                           right: maxWidth * 0.2,
                         ),
                         child: CustomButton(
-                          text: textLogin,
+                          text: "Login",
                           color: const Color.fromARGB(255, 39, 178, 243),
                           pressFunction: () => loginButton(
                             name: username.text,
@@ -62,6 +62,10 @@ class LoginPage extends StatelessWidget {
                             context: context,
                           ),
                         ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Text(Version),
                       ),
                     ],
                   ),

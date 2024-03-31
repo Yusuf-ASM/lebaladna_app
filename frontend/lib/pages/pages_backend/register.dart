@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lebaladna/backend/text.dart';
 
 import '../../backend/api/admin_api.dart';
 import '../../components/shared_components.dart';
@@ -24,7 +23,7 @@ Future<void> registerUserButton({
       }
     }
   } else {
-    snackBar(textFillUsernamePassword, context);
+    snackBar("Please fill Username/Password field :)", context);
   }
 }
 
@@ -141,7 +140,3 @@ Future<List> createCampaignsData() async {
   }
   return [];
 }
-// 94:52:44:7C:D2:61
-// 70:CE:8C:5F:56:50
-// C8:94:02:F6:6A:CB
-// 14:D4:24:94:4C:D1

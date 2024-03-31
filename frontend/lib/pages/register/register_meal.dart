@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lebaladna/backend/custom_functions.dart';
 import 'package:lebaladna/backend/shared_variables.dart';
-import 'package:lebaladna/backend/text.dart';
 import 'package:lebaladna/components/shared_components.dart';
 import 'package:lebaladna/pages/pages_backend/register.dart';
 
-import '../../components/about_us/about_us_switch.dart';
+import '../../components/switches.dart';
 
 class RegisterMealPage extends StatelessWidget {
   const RegisterMealPage({super.key});
@@ -21,7 +20,7 @@ class RegisterMealPage extends StatelessWidget {
     List selectedIngredients = [];
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: const Text(textCreateMeal), centerTitle: true),
+        appBar: AppBar(title: const Text("Create Meal"), centerTitle: true),
         body: ListenableBuilder(
           listenable: loading,
           builder: (context, child) {
@@ -52,7 +51,7 @@ class RegisterMealPage extends StatelessWidget {
                       FormTextField(
                         controller: mealName,
                         onSubmitted: () => {},
-                        labelText: textMealName,
+                        labelText: "Meal Name",
                       ),
                       expansionTile(context, "Ingredient:", [
                         Container(
@@ -93,7 +92,7 @@ class RegisterMealPage extends StatelessWidget {
                               context: context,
                             );
                           },
-                          child: const Text(textRegister),
+                          child: const Text("Register"),
                         ),
                       )
                     ],

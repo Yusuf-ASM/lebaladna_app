@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../backend/shared_variables.dart';
 import '../../backend/custom_functions.dart';
-import '../backend/text.dart';
 import 'initial_page.dart';
 
 class IntroPage extends StatefulWidget {
@@ -34,7 +33,7 @@ class _IntroPageState extends State<IntroPage> {
       child: Scaffold(
         body: Center(
             child: Text(
-          textProgramClientName,
+          "Lebaladna",
           style: TextStyle(fontSize: BigTextSize, fontWeight: FontWeight.bold),
         )),
       ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lebaladna/backend/text.dart';
 
 import '../../backend/api/user_api.dart';
 import '../../backend/custom_functions.dart';
@@ -31,6 +30,6 @@ Future<void> loginButton({
       }
     }
   } else {
-    snackBar(textFillUsernamePassword, context);
+    snackBar("Please fill Username/Password field :)", context);
   }
 }

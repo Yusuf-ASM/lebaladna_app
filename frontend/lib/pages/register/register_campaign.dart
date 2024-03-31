@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lebaladna/backend/custom_functions.dart';
-import 'package:lebaladna/backend/text.dart';
 import 'package:lebaladna/components/shared_components.dart';
 
 import '../../backend/shared_variables.dart';
-import '../../components/about_us/about_us_switch.dart';
+import '../../components/switches.dart';
 import '../pages_backend/register.dart';
 
 class RegisterCampaignPage extends StatelessWidget {
-  final campaignName = TextEditingController();
-  RegisterCampaignPage({super.key});
+  const RegisterCampaignPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final campaignName = TextEditingController();
     Map<String, dynamic> selectedMeals = {};
     Set selectedStationLeaders = {};
     String selectedKitchenLeader = "";
@@ -28,7 +27,7 @@ class RegisterCampaignPage extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: const Text(textCreateCampaign), centerTitle: true),
+        appBar: AppBar(title: const Text("Create Campaign"), centerTitle: true),
         body: ListenableBuilder(
           listenable: loading,
           builder: (context, child) {
@@ -61,7 +60,7 @@ class RegisterCampaignPage extends StatelessWidget {
                       FormTextField(
                         controller: campaignName,
                         onSubmitted: () => {},
-                        labelText: textCampaignName,
+                        labelText: "Campaign Name",
                       ),
                       expansionTile(context, "Meals", [
                         Container(
@@ -117,7 +116,7 @@ class RegisterCampaignPage extends StatelessWidget {
                           ),
                         ),
                       ]),
-                      expansionTile(context, textKitchenLeader, [
+                      expansionTile(context, "Kitchen Leader", [
                         Container(
                           padding: const EdgeInsets.all(16),
                           width: maxWidth * 0.9,
@@ -145,7 +144,7 @@ class RegisterCampaignPage extends StatelessWidget {
                           ),
                         ),
                       ]),
-                      expansionTile(context, textStationLeader, [
+                      expansionTile(context, "Station Leader", [
                         Container(
                           padding: const EdgeInsets.all(16),
                           width: maxWidth * 0.9,
@@ -185,7 +184,7 @@ class RegisterCampaignPage extends StatelessWidget {
                               meals: selectedMeals,
                             );
                           },
-                          child: const Text(textRegister),
+                          child: const Text("Register"),
                         ),
                       )
                     ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lebaladna/backend/text.dart';
 import 'package:lebaladna/components/shared_components.dart';
 
 import '../pages_backend/register.dart';
@@ -17,7 +16,7 @@ class RegisterUserPage extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: const Text(textRegisterUser), centerTitle: true),
+        appBar: AppBar(title: const Text("Register user"), centerTitle: true),
         body: Center(
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: maxWidth),
@@ -27,7 +26,7 @@ class RegisterUserPage extends StatelessWidget {
                 FormTextField(
                   controller: username,
                   onSubmitted: () => {},
-                  labelText: textUsername,
+                  labelText: "Username",
                 ),
                 FormTextField(
                   controller: password,
@@ -36,7 +35,7 @@ class RegisterUserPage extends StatelessWidget {
                     name: username.text,
                     password: password.text,
                   ),
-                  labelText: textPassword,
+                  labelText: "Password",
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 16, bottom: 32),
@@ -46,7 +45,7 @@ class RegisterUserPage extends StatelessWidget {
                       name: username.text,
                       password: password.text,
                     ),
-                    child: const Text(textRegister),
+                    child: const Text("Register"),
                   ),
                 )
               ],
