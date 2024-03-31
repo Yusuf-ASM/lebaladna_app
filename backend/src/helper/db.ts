@@ -15,7 +15,8 @@ import { generateToken, getDate, getDateEpoch, hashPassword } from "./utility";
 
 require("dotenv").config();
 
-const mongoUrl = process.env.MONGOLINK as string;
+// const mongoUrl = process.env.MONGOLINK as string;
+const mongoUrl = process.env.MONGOLINKREMOTE as string;
 const dbName = process.env.DBNAME as string;
 
 const mongoClient = new MongoClient(mongoUrl);
@@ -54,7 +55,7 @@ export async function login({ name, password }: { name: string; password: string
     const token = generateToken();
 
     let result = await usersCollection.updateOne(query, {
-      $push: { token: token },
+      $push: { tokens: token },
     });
 
     if (result.acknowledged && result.modifiedCount == 1) {
