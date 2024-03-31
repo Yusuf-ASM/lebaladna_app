@@ -8,8 +8,6 @@ import { admin } from "./routes/adminRouter";
 import { facilitator } from "./routes/facilitatorRouter";
 import { kitchen } from "./routes/kitchenRouter";
 import { station } from "./routes/stationRouter";
-import Joi from "joi";
-import { Ingredient } from "./helper/schema";
 
 require("dotenv").config();
 const PORT = process.env.PORT || "8080";
@@ -40,17 +38,6 @@ app.get("/campaign/:id", async (req, res) => {
 
 app.post("/user_campaign", async (req, res) => {
   await backend.getUserCampaignsBackend(req, res);
-});
-
-app.all("/test", async (req, res) => {
-  const _ = Joi.object({ ingredients: Joi.array().items(Ingredient) });
-  console.log(_.validate(req.body).error);
-  res.send();
-});
-app.all("/test/:id", async (req, res) => {
-  console.log(req.params);
-
-  res.send();
 });
 
 //okie

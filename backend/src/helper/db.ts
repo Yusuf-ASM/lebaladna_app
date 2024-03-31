@@ -268,6 +268,31 @@ export async function addMeal({
     },
   });
   console.log(res);
+  return res.acknowledged && res.modifiedCount == 1;
+}
+
+export async function consumeIngredient({
+  campaignId,
+  name,
+  quantity,
+  ingredient,
+}: {
+  campaignId: string;
+  name: string;
+  quantity: number;
+  ingredient: string;
+}) {
+  console.log(name);
+  console.log(ingredient);
+  const query = { _id: new ObjectId(campaignId) };
+  const res = await campaignsCollection.updateOne(query, {
+    $inc: {
+      [`stationsReport.${name}.ingredients.${ingredient}`]: quantity,
+      [`repo.${ingredient}`]: quantity * -1,
+    },
+  });
+  console.log(res);
+  return res.acknowledged && res.modifiedCount == 1;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////

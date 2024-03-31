@@ -53,3 +53,28 @@ export async function getStationProgressBackend(req: Request, res: Response) {
     res.status(400).send({ error: validationResult.error.message });
   }
 }
+
+export async function consumeIngredientBackend(req: Request, res: Response) {
+  const body = req.body;
+
+  const schema = Joi.object({
+    campaignId: Joi.string().trim().required(),
+    name: Joi.string().trim().required(),
+    ingredient: Joi.string().trim().required(),
+    quantity: Joi.number().required(),
+  });
+
+  let validationResult = schema.validate(body);
+  console.log("consumeIngredientBackend:");
+
+  if (validationResult.error === undefined) {
+    let result = await db.consumeIngredient(body);
+    await notify("station");
+    await notify("kitchen");
+    console.log(result);
+    res.send(result);
+  } else {
+    console.log(JSON.stringify(validationResult.error));
+    res.status(400).send({ error: validationResult.error.message });
+  }
+}
