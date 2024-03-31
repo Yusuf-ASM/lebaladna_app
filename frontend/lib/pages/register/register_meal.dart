@@ -6,7 +6,15 @@ import 'package:lebaladna/pages/pages_backend/register.dart';
 
 import '../../components/switches.dart';
 
-class RegisterMealPage extends StatelessWidget {
+class RegisterMealPage extends StatefulWidget {
+
+  const RegisterMealPage({super.key});
+
+  @override
+  State<RegisterMealPage> createState() => _RegisterMealPageState();
+}
+
+class _RegisterMealPageState extends State<RegisterMealPage> {
   final loading = LoadingStateNotifier();
   final mealName = TextEditingController();
   List response = [];
@@ -14,7 +22,6 @@ class RegisterMealPage extends StatelessWidget {
   List ingredientsData = [];
   List selectedIngredients = [];
 
-  RegisterMealPage({super.key});
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;

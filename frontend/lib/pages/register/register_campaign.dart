@@ -6,8 +6,14 @@ import '../../backend/shared_variables.dart';
 import '../../components/switches.dart';
 import '../pages_backend/register.dart';
 
-class RegisterCampaignPage extends StatelessWidget {
-  RegisterCampaignPage({super.key});
+class RegisterCampaignPage extends StatefulWidget {
+  const RegisterCampaignPage({super.key});
+
+  @override
+  State<RegisterCampaignPage> createState() => _RegisterCampaignPageState();
+}
+
+class _RegisterCampaignPageState extends State<RegisterCampaignPage> {
   final loading = LoadingStateNotifier();
   final campaignName = TextEditingController();
   Map<String, dynamic> selectedMeals = {};
