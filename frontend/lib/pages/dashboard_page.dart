@@ -1,15 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lebaladna/backend/text.dart';
 import 'package:lebaladna/components/shared_components.dart';
 import 'package:lebaladna/pages/pages_backend/dashboard.dart';
-import 'package:lebaladna/pages/register/register_campaign.dart';
-import 'package:lebaladna/pages/register/register_ingredient.dart';
-import 'package:lebaladna/pages/register/register_meal.dart';
-import 'package:lebaladna/pages/register/register_user.dart';
+
 
 import '../backend/custom_functions.dart';
 import '../backend/shared_variables.dart';
+import '../components/drawers.dart';
 
 class DashboardPage extends StatelessWidget {
   final notifier = VariableNotifier();
@@ -42,7 +38,7 @@ class DashboardPage extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        drawer: drawer(context),
+        drawer: adminDrawer(context),
         appBar: AppBar(title: const Text("Dashboard"), centerTitle: true),
         body: ListenableBuilder(
           listenable: loading,
@@ -146,7 +142,6 @@ class DashboardPage extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
@@ -263,84 +258,4 @@ class DashboardPage extends StatelessWidget {
   }
 }
 
-Drawer drawer(BuildContext context) {
-  final signInStateNotifier = UserStateNotifier();
-  return Drawer(
-    child: Column(
-      children: [
-        const DrawerHeader(
-          child: Center(
-            child: Text(
-              textProgramClientName,
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ),
-        Theme(
-          data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-          child: ExpansionTile(
-            title: const Text(
-              textRegistration,
-              style: TextStyle(fontSize: SemiTextSize),
-            ),
-            childrenPadding: const EdgeInsets.symmetric(horizontal: 8),
-            children: [
-              DrawerIconButton(
-                text: textRegisterUser,
-                icon: Icons.person_add_alt_1,
-                pressFunction: () {
-                  Navigator.of(context).push(
-                    CupertinoPageRoute(
-                      builder: (context) => RegisterUserPage(),
-                    ),
-                  );
-                },
-              ),
-              DrawerIconButton(
-                text: textCreateCampaign,
-                icon: Icons.campaign,
-                pressFunction: () {
-                  Navigator.of(context).push(
-                    CupertinoPageRoute(
-                      builder: (context) => RegisterCampaignPage(),
-                    ),
-                  );
-                },
-              ),
-              DrawerIconButton(
-                text: textCreateIngredient,
-                icon: Icons.local_grocery_store_rounded,
-                pressFunction: () {
-                  Navigator.of(context).push(
-                    CupertinoPageRoute(
-                      builder: (context) => RegisterIngredientPage(),
-                    ),
-                  );
-                },
-              ),
-              DrawerIconButton(
-                text: textCreateMeal,
-                icon: Icons.local_dining,
-                pressFunction: () {
-                  Navigator.of(context).push(
-                    CupertinoPageRoute(
-                      builder: (context) => const RegisterMealPage(),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-        DrawerIconButton(
-          text: textLogout,
-          icon: Icons.logout,
-          pressFunction: () => signInStateNotifier.logout(),
-        )
-      ],
-    ),
-  );
-}
+
