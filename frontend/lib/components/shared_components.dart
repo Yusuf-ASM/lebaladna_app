@@ -23,46 +23,31 @@ dynamic loadingIndicatorDialog(BuildContext context, {bool dismissible = false})
     context: context,
     barrierDismissible: false,
     builder: (BuildContext context) {
-      final date = DateTime.now();
       return PopScope(
         canPop: false,
         child: SimpleDialog(
           elevation: 0.0,
           backgroundColor: Colors.transparent,
-          children: [
-            Center(
-              child: Lottie.asset(
-                date.minute % 2 == 0
-                    ? date.second % 2 == 0
-                        ? "assets/cat.json"
-                        : "assets/bomb.json"
-                    : date.second % 2 == 0
-                        ? "assets/duck.json"
-                        : "assets/potato.json",
-                frameRate: FrameRate.max,
-              ),
-            )
-          ],
+          children: [Center(child: Lottie.asset(randomAssetPath(), frameRate: FrameRate.max))],
         ),
       );
     },
   );
 }
 
-Center loadingIndicator() {
+String randomAssetPath() {
   final date = DateTime.now();
-  return Center(
-    child: Lottie.asset(
-      date.minute % 2 == 0
-          ? date.second % 2 == 0
-              ? "assets/cat.json"
-              : "assets/bomb.json"
-          : date.second % 2 == 0
-              ? "assets/duck.json"
-              : "assets/potato.json",
-      frameRate: FrameRate.max,
-    ),
-  );
+  return date.minute % 2 == 0
+      ? date.second % 2 == 0
+          ? "assets/cat.json"
+          : "assets/bomb.json"
+      : date.second % 2 == 0
+          ? "assets/duck.json"
+          : "assets/potato.json";
+}
+
+Center loadingIndicator() {
+  return Center(child: Lottie.asset(randomAssetPath(), frameRate: FrameRate.max));
 }
 
 dynamic simpleDialog({
@@ -127,7 +112,6 @@ Theme expansionTile(BuildContext context, String title, List<Widget> children) {
   return Theme(
     data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
     child: ExpansionTile(
-      
       title: Text(title, style: const TextStyle(fontSize: SemiTextSize)),
       childrenPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       expandedAlignment: Alignment.center,
@@ -385,3 +369,95 @@ class CustomLabel extends StatelessWidget {
     );
   }
 }
+
+Text semiText(String text) => Text(text, style: const TextStyle(fontSize: SemiTextSize));
+
+Text bigText(String text) => Text(text, style: const TextStyle(fontSize: BigTextSize));
+
+Future addDialog(
+  BuildContext context,
+  List<DropdownMenuEntry> menu,
+  String title,
+  String name,
+  Function(String selected, int quantity) submitFunction,
+) async {
+  String selected = "";
+  int quantity = 0;
+  final quantityNotifier = VariableNotifier();
+
+  return await showDialog(
+    context: context,
+    useRootNavigator: false,
+    builder: (context) {
+      return AlertDialog(
+        title: semiText(title),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            semiText("$name:"),
+            const SizedBox(height: 8),
+            Center(
+              child: DropdownMenu(
+                onSelected: (value) {
+                  selected = value ?? "";
+                },
+                dropdownMenuEntries: menu,
+              ),
+            ),
+            const SizedBox(height: 16),
+            const Text("Quantity:", style: TextStyle(fontSize: SemiTextSize)),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    if (quantity > 0) {
+                      quantity--;
+                      quantityNotifier.change();
+                    }
+                  },
+                  icon: const Icon(Icons.remove),
+                ),
+                ListenableBuilder(
+                  listenable: quantityNotifier,
+                  builder: (context, child) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: const BorderRadius.all(Radius.circular(5)),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      child: Text(
+                        quantity.toString(),
+                        style: const TextStyle(fontSize: SemiTextSize),
+                      ),
+                    );
+                  },
+                ),
+                IconButton(
+                  onPressed: () {
+                    quantity++;
+                    quantityNotifier.change();
+                  },
+                  icon: const Icon(Icons.add),
+                )
+              ],
+            ),
+            const SizedBox(height: 16),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              submitFunction(selected, quantity);
+            },
+            child: const Text("Add"),
+          ),
+        ],
+      );
+    },
+  );
+}
+
