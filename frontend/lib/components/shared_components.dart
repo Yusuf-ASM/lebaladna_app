@@ -395,7 +395,7 @@ Future addDialog(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            semiText("$name:"),
+            semiText(name),
             const SizedBox(height: 8),
             Center(
               child: DropdownMenu(

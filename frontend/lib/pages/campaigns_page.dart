@@ -89,13 +89,7 @@ class CampaignsPage extends StatelessWidget {
                             ),
                           );
                         } else if (role == "facilitator") {
-                          Navigator.of(context).push(
-                            CupertinoPageRoute(
-                              builder: (context) => KitchenLeaderPage(
-                                campaignId: campaignId,
-                              ),
-                            ),
-                          );
+                          
                         }
                       },
                       child: Card(

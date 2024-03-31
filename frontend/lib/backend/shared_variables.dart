@@ -4,18 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-const Link = Testing ? "127.0.0.1" : "192.168.3.100";
-const BackendLink = "http://$Link:8080";
-const webSocketLink = "ws://$Link:8080/ws";
-const UserBackendLink = "http://$Link:8080/user";
-const AdminBackendLink = "http://$Link:8080/admin";
-const KitchenBackendLink = "http://$Link:8080/kitchen";
-const StationBackendLink = "http://$Link:8080/station";
-const FacilitatorBackendLink = "http://$Link:8080/facilitator";
+const BackendLink = Testing ? "http://127.0.0.1:8080" : "https://lebaladnab.nucoders.dev";
+const webSocketLink = Testing ? "ws://127.0.0.1:8080/ws" : "wss://lebaladnab.nucoders.dev/ws";
+const UserBackendLink = Testing ? "http://127.0.0.1:8080/user" : "https://lebaladnab.nucoders.dev/user";
+const AdminBackendLink =
+    Testing ? "http://127.0.0.1:8080/admin" : "https://lebaladnab.nucoders.dev/admin";
+const KitchenBackendLink =
+    Testing ? "http://127.0.0.1:8080/kitchen" : "https://lebaladnab.nucoders.dev/kitchen";
+const StationBackendLink =
+    Testing ? "http://127.0.0.1:8080/station" : "https://lebaladnab.nucoders.dev/station";
+const FacilitatorBackendLink =
+    Testing ? "http://127.0.0.1:8080/facilitator" : "https://lebaladnab.nucoders.dev/facilitator";
 
 WebSocketChannel? channel;
 Stream? stream;
-const Version = "V1.0.1";
+const Version = "V1.0.3";
 const Testing = false;
 const TextFieldBorderRadius = 15.0;
 const NormalTextSize = 16.0;

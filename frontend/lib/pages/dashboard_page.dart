@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lebaladna/components/shared_components.dart';
 import 'package:lebaladna/pages/pages_backend/dashboard.dart';
 
-
 import '../backend/custom_functions.dart';
 import '../backend/shared_variables.dart';
 import '../components/drawers.dart';
@@ -170,35 +169,40 @@ class DashboardPage extends StatelessWidget {
                       },
                     ),
                     const SizedBox(height: 16),
-                    ConstrainedBox(
-                      constraints: BoxConstraints(maxWidth: maxWidth, minWidth: maxWidth),
-                      child: Card(
-                        elevation: 4,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            children: [
-                              const Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                    ListenableBuilder(
+                      listenable: notifier,
+                      builder: (context, child) {
+                        return ConstrainedBox(
+                          constraints: BoxConstraints(maxWidth: maxWidth, minWidth: maxWidth),
+                          child: Card(
+                            elevation: 4,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
                                 children: [
-                                  Text(
-                                    "Repo:",
-                                    style: TextStyle(fontSize: SemiTextSize),
+                                  const Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Repo:",
+                                        style: TextStyle(fontSize: SemiTextSize),
+                                      ),
+                                    ],
+                                  ),
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Wrap(
+                                      spacing: 32,
+                                      direction: Axis.horizontal,
+                                      children: repo,
+                                    ),
                                   ),
                                 ],
                               ),
-                              SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Wrap(
-                                  spacing: 32,
-                                  direction: Axis.horizontal,
-                                  children: repo,
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                     const SizedBox(height: 16),
                     ConstrainedBox(
@@ -257,5 +261,3 @@ class DashboardPage extends StatelessWidget {
     );
   }
 }
-
-
