@@ -45,7 +45,7 @@ Future<List> getKitchenProgress(Map body) async {
 Future<List> addMeal(Map body) async {
   Dio dio = Dio();
   try {
-    final response = await dio.post("$StationBackendLink/add/Meal", data: body);
+    final response = await dio.post("$StationBackendLink/add/meal", data: body);
     dio.close();
     return [200, response.data];
   } on DioException catch (error) {
@@ -56,6 +56,25 @@ Future<List> addMeal(Map body) async {
       response = [error.response!.statusCode, error.response!.data["error"]];
     } else {
       writeError("addMeal", error);
+    }
+    return response;
+  }
+}
+
+Future<List> consumeIngredient(Map body) async {
+  Dio dio = Dio();
+  try {
+    final response = await dio.post("$StationBackendLink/consume/ingredient", data: body);
+    dio.close();
+    return [200, response.data];
+  } on DioException catch (error) {
+    List response = [-1, error.message];
+    dio.close();
+    if (error.response != null) {
+      writeError("consumeIngredient", "${error.response!.statusCode} - ${error.response!.data}");
+      response = [error.response!.statusCode, error.response!.data["error"]];
+    } else {
+      writeError("consumeIngredient", error);
     }
     return response;
   }
