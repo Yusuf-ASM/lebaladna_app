@@ -50,10 +50,10 @@ class StationPage extends StatelessWidget {
               menu,
               "Add Ingredient",
               "Ingredient Name:",
-              (selected, quantity) async => await addMealButton(
+              (selected, quantity) async => await consumeIngredientButton(
                 campaignId: campaignId,
                 context: context,
-                meal: selected,
+                ingredient: selected,
                 quantity: quantity,
               ),
             );
@@ -68,10 +68,10 @@ class StationPage extends StatelessWidget {
                 menu,
                 "Add Meal",
                 "Meal Name:",
-                (selected, quantity) async => await consumeIngredientButton(
+                (selected, quantity) async => await addMealButton(
                   campaignId: campaignId,
                   context: context,
-                  ingredient: selected,
+                  meal: selected,
                   quantity: quantity,
                 ),
               );
