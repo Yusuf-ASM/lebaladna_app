@@ -77,7 +77,7 @@ Drawer adminDrawer(BuildContext context) {
                 pressFunction: () {
                   Navigator.of(context).push(
                     CupertinoPageRoute(
-                      builder: (context) => const RegisterCampaignPage(),
+                      builder: (context) => RegisterCampaignPage(),
                     ),
                   );
                 },
@@ -99,7 +99,7 @@ Drawer adminDrawer(BuildContext context) {
                 pressFunction: () {
                   Navigator.of(context).push(
                     CupertinoPageRoute(
-                      builder: (context) => const RegisterMealPage(),
+                      builder: (context) => RegisterMealPage(),
                     ),
                   );
                 },

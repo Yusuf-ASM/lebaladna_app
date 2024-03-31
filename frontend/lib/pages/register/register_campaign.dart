@@ -7,22 +7,21 @@ import '../../components/switches.dart';
 import '../pages_backend/register.dart';
 
 class RegisterCampaignPage extends StatelessWidget {
-  const RegisterCampaignPage({super.key});
+  RegisterCampaignPage({super.key});
+  final loading = LoadingStateNotifier();
+  final campaignName = TextEditingController();
+  Map<String, dynamic> selectedMeals = {};
+  Set selectedStationLeaders = {};
+  String selectedKitchenLeader = "";
+  List response = [];
+  List users = [];
+  List meals = [];
+  List userIds = [];
+  List mealIds = [];
 
   @override
   Widget build(BuildContext context) {
-    final campaignName = TextEditingController();
-    Map<String, dynamic> selectedMeals = {};
-    Set selectedStationLeaders = {};
-    String selectedKitchenLeader = "";
-    List response = [];
-    List users = [];
-    List meals = [];
-    List userIds = [];
-    List mealIds = [];
-
     final width = MediaQuery.of(context).size.width;
-    final loading = LoadingStateNotifier();
     double maxWidth = width * 0.9;
 
     return SafeArea(

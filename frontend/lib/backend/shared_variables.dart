@@ -15,8 +15,8 @@ const FacilitatorBackendLink = "http://$Link:8080/facilitator";
 
 WebSocketChannel? channel;
 Stream? stream;
-const Version = "V1.0";
-const Testing = true;
+const Version = "V1.0.1";
+const Testing = false;
 const TextFieldBorderRadius = 15.0;
 const NormalTextSize = 16.0;
 const SemiTextSize = 18.0;
