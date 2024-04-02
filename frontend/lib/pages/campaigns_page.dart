@@ -10,15 +10,22 @@ import 'dashboard_page.dart';
 import 'pages_backend/campaigns.dart';
 import 'station_page.dart';
 
-class CampaignsPage extends StatelessWidget {
+class CampaignsPage extends StatefulWidget {
+
   const CampaignsPage({super.key});
+
+  @override
+  State<CampaignsPage> createState() => _CampaignsPageState();
+}
+
+class _CampaignsPageState extends State<CampaignsPage> {
+    final loading = LoadingStateNotifier();
+    List response = [];
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     double maxWidth = width * 0.9;
-    final loading = LoadingStateNotifier();
-    List response = [];
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(centerTitle: true, title: const Text("Campaigns")),

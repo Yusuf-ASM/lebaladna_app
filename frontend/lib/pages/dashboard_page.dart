@@ -6,25 +6,31 @@ import '../backend/custom_functions.dart';
 import '../backend/shared_variables.dart';
 import '../components/drawers.dart';
 
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
+  final String campaignId;
+  const DashboardPage({super.key, required this.campaignId});
+
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
   final notifier = VariableNotifier();
   final loading = LoadingStateNotifier();
-  final String campaignId;
-  DashboardPage({super.key, required this.campaignId});
+  List<Widget> mealProgress = [];
+  List<Widget> usedMaterial = [];
+  List<Widget> stationProgress = [];
+  List<Widget> repo = [];
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> mealProgress = [];
-    List<Widget> usedMaterial = [];
-    List<Widget> stationProgress = [];
-    List<Widget> repo = [];
     final width = MediaQuery.of(context).size.width;
     double maxWidth = width * 0.9;
 
     if (stream != null) {
       stream!.listen((event) {
         if (event == "kitchen" || event == "station") {
-          backend(context, maxWidth, campaignId).then((value) {
+          backend(context, maxWidth, widget.campaignId).then((value) {
             mealProgress = value[0];
             usedMaterial = value[1];
             stationProgress = value[2];
@@ -43,7 +49,7 @@ class DashboardPage extends StatelessWidget {
           listenable: loading,
           builder: (context, child) {
             if (loading.loading) {
-              backend(context, maxWidth, campaignId).then((value) {
+              backend(context, maxWidth, widget.campaignId).then((value) {
                 mealProgress = value[0];
                 usedMaterial = value[1];
                 stationProgress = value[2];

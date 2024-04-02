@@ -5,29 +5,35 @@ import '../backend/shared_variables.dart';
 import '../components/shared_components.dart';
 import 'pages_backend/kitchen.dart';
 
-class KitchenLeaderPage extends StatelessWidget {
-  final notifier = VariableNotifier();
-  final loading = LoadingStateNotifier();
+class KitchenLeaderPage extends StatefulWidget {
   final String campaignId;
-  KitchenLeaderPage({
+  const KitchenLeaderPage({
     super.key,
     required this.campaignId,
   });
 
   @override
+  State<KitchenLeaderPage> createState() => _KitchenLeaderPageState();
+}
+
+class _KitchenLeaderPageState extends State<KitchenLeaderPage> {
+  final notifier = VariableNotifier();
+  final loading = LoadingStateNotifier();
+  List response = [];
+  List ingredientNames = [];
+  Map progress = {};
+  List<Widget> progressWidgets = [];
+  List<Widget> repoWidgets = [];
+
+  @override
   Widget build(BuildContext context) {
-    List response = [];
-    List ingredientNames = [];
-    Map progress = {};
-    List<Widget> progressWidgets = [];
-    List<Widget> repoWidgets = [];
     final width = MediaQuery.of(context).size.width;
     double maxWidth = width * 0.9;
     if (stream != null) {
       stream!.listen((event) {
         if (event == "kitchen") {
           //TODO check campaign id :)
-          kitchenDashboardData(campaignId).then((value) {
+          kitchenDashboardData(widget.campaignId).then((value) {
             if (value.isNotEmpty) {
               response = value;
               ingredientNames = response[0];
@@ -193,7 +199,7 @@ class KitchenLeaderPage extends StatelessWidget {
                     TextButton(
                       onPressed: () {
                         addIngredientButton(
-                          campaignId: campaignId,
+                          campaignId: widget.campaignId,
                           context: context,
                           kitchen: kitchen,
                           name: ingredient,
@@ -212,7 +218,7 @@ class KitchenLeaderPage extends StatelessWidget {
           listenable: loading,
           builder: (context, child) {
             if (loading.loading) {
-              kitchenDashboardData(campaignId).then((value) {
+              kitchenDashboardData(widget.campaignId).then((value) {
                 if (value.isNotEmpty) {
                   response = value;
                 }

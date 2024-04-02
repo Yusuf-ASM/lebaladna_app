@@ -5,26 +5,33 @@ import '../backend/shared_variables.dart';
 import '../components/shared_components.dart';
 import 'pages_backend/station.dart';
 
-class StationPage extends StatelessWidget {
+class StationPage extends StatefulWidget {
   final String campaignId;
+
   const StationPage({super.key, required this.campaignId});
+
+  @override
+  State<StationPage> createState() => _StationPageState();
+}
+
+class _StationPageState extends State<StationPage> {
+  final station = VariableNotifier();
+  final loading = LoadingStateNotifier();
+  Map meals = {};
+  Map ingredients = {};
+  List<Widget> mealsWidget = [];
+  List<Widget> ingredientsWidget = [];
+
   @override
   Widget build(BuildContext context) {
-    final station = VariableNotifier();
     final width = MediaQuery.of(context).size.width;
-    final loading = LoadingStateNotifier();
-
-    Map meals = {};
-    Map ingredients = {};
-    List<Widget> mealsWidget = [];
-    List<Widget> ingredientsWidget = [];
     double maxWidth = width * 0.9;
 
     if (stream != null) {
       stream!.listen((event) {
         if (event == "station") {
           //TODO check campaign id :)
-          backend(campaignId).then((value) {
+          backend(widget.campaignId).then((value) {
             if (value.isNotEmpty) {
               mealsWidget = value[0];
               ingredientsWidget = value[1];
@@ -36,7 +43,7 @@ class StationPage extends StatelessWidget {
         }
       });
     }
-    
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(centerTitle: true, title: const Text("Station")),
@@ -51,7 +58,7 @@ class StationPage extends StatelessWidget {
               "Add Ingredient",
               "Ingredient Name:",
               (selected, quantity) async => await consumeIngredientButton(
-                campaignId: campaignId,
+                campaignId: widget.campaignId,
                 context: context,
                 ingredient: selected,
                 quantity: quantity,
@@ -69,7 +76,7 @@ class StationPage extends StatelessWidget {
                 "Add Meal",
                 "Meal Name:",
                 (selected, quantity) async => await addMealButton(
-                  campaignId: campaignId,
+                  campaignId: widget.campaignId,
                   context: context,
                   meal: selected,
                   quantity: quantity,
@@ -82,7 +89,7 @@ class StationPage extends StatelessWidget {
           listenable: loading,
           builder: (context, child) {
             if (loading.loading) {
-              backend(campaignId).then((value) {
+              backend(widget.campaignId).then((value) {
                 if (value.isNotEmpty) {
                   mealsWidget = value[0];
                   ingredientsWidget = value[1];
