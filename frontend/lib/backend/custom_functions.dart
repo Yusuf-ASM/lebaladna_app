@@ -65,13 +65,13 @@ class UserStateNotifier with ChangeNotifier {
   bool signed = box.get("signed") ?? false;
   void logout() {
     signed = false;
-    box.put("signed", false);
+    box.put("signed", signed);
     notifyListeners();
   }
 
   void login() {
     signed = true;
-    box.put("signed", true);
+    box.put("signed", signed);
     notifyListeners();
   }
 }

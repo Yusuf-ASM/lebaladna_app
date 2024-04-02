@@ -21,7 +21,7 @@ class _IntroPageState extends State<IntroPage> {
         initializing().then(
           (value) => Navigator.of(context).pushAndRemoveUntil(
             CupertinoPageRoute(
-              builder: (context) => const InitialPage(),
+              builder: (context) => InitialPage(),
             ),
             (route) => false,
           ),

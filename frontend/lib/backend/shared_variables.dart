@@ -18,7 +18,7 @@ const FacilitatorBackendLink =
 
 WebSocketChannel? channel;
 Stream? stream;
-const Version = "V1.0.3";
+const Version = "V1.0.4";
 const Testing = false;
 const TextFieldBorderRadius = 15.0;
 const NormalTextSize = 16.0;
