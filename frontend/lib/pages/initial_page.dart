@@ -6,11 +6,11 @@ import '../../backend/custom_functions.dart';
 import '../../backend/shared_variables.dart';
 
 class InitialPage extends StatelessWidget {
-  const InitialPage({super.key});
+  final signInStateNotifier = UserStateNotifier();
+  InitialPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final signInStateNotifier = UserStateNotifier();
     return ListenableBuilder(
       listenable: signInStateNotifier,
       builder: (context, child) {
