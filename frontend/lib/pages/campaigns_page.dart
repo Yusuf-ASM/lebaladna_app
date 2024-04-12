@@ -11,7 +11,6 @@ import 'pages_backend/campaigns.dart';
 import 'station_page.dart';
 
 class CampaignsPage extends StatefulWidget {
-
   const CampaignsPage({super.key});
 
   @override
@@ -19,8 +18,8 @@ class CampaignsPage extends StatefulWidget {
 }
 
 class _CampaignsPageState extends State<CampaignsPage> {
-    final loading = LoadingStateNotifier();
-    List response = [];
+  final loading = LoadingStateNotifier();
+  List response = [];
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +34,7 @@ class _CampaignsPageState extends State<CampaignsPage> {
           builder: (context, child) {
             if (loading.loading) {
               campaignData().then((value) {
-                if (value.isNotEmpty) response = value;
+                if (value.isNotEmpty) response = value[1];
                 loading.change();
               });
               return loadingIndicator();
@@ -43,7 +42,7 @@ class _CampaignsPageState extends State<CampaignsPage> {
               return const Center(
                 child: Text("Error :(", style: TextStyle(fontSize: BigTextSize)),
               );
-            } else if (response[1].isEmpty) {
+            } else if (response.isEmpty) {
               return const Center(
                 child: Text(
                   textAlign: TextAlign.center,
@@ -52,8 +51,6 @@ class _CampaignsPageState extends State<CampaignsPage> {
                 ),
               );
             }
-
-            response = response[1];
 
             return ListView.builder(
               itemCount: response.length,
@@ -95,9 +92,7 @@ class _CampaignsPageState extends State<CampaignsPage> {
                               ),
                             ),
                           );
-                        } else if (role == "facilitator") {
-                          
-                        }
+                        } else if (role == "facilitator") {}
                       },
                       child: Card(
                         elevation: 4,

@@ -6,7 +6,8 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 const BackendLink = Testing ? "http://127.0.0.1:8080" : "https://lebaladnab.nucoders.dev";
 const webSocketLink = Testing ? "ws://127.0.0.1:8080/ws" : "wss://lebaladnab.nucoders.dev/ws";
-const UserBackendLink = Testing ? "http://127.0.0.1:8080/user" : "https://lebaladnab.nucoders.dev/user";
+const UserBackendLink =
+    Testing ? "http://127.0.0.1:8080/user" : "https://lebaladnab.nucoders.dev/user";
 const AdminBackendLink =
     Testing ? "http://127.0.0.1:8080/admin" : "https://lebaladnab.nucoders.dev/admin";
 const KitchenBackendLink =
@@ -18,7 +19,7 @@ const FacilitatorBackendLink =
 
 WebSocketChannel? channel;
 Stream? stream;
-const Version = "V1.0.4";
+const Version = "V1.0.5";
 const Testing = false;
 const TextFieldBorderRadius = 15.0;
 const NormalTextSize = 16.0;
